@@ -1,0 +1,515 @@
+/**
+ * Мобильная оптимизация страницы калькулятора удобрений
+ * Версия: 1.0.0
+ */
+
+/* --- CSS Переменные --- */
+:root {
+  --fpm-shadow-sm: rgba(0, 0, 0, 0.1);
+  --fpm-concentrate-a: #0d6efd;
+  --fpm-concentrate-b: #dc3545;
+  --fpm-concentrate-a-light: rgba(13, 110, 253, 0.2);
+  --fpm-concentrate-b-light: rgba(220, 53, 69, 0.2);
+}
+
+/* ==========================================
+   ПАНЕЛЬ КНОПОК
+   ========================================== */
+
+/* На мобильных (<768px) - скрываем текст на кнопках по умолчанию */
+@media (max-width: 768px) {
+    /* Кнопки управления */
+    .btn .bi ~ span:not(.badge),
+    .btn span:not(.bi):not(.badge) {
+        display: none;
+    }
+
+    /* Исключение: кнопки без иконок должны показывать текст */
+    .btn:not(:has(.bi)) span {
+        display: inline !important;
+    }
+
+    /* Кнопки становятся квадратными для иконок */
+    .btn-sm {
+        padding: 0.375rem 0.5rem;
+        min-width: 38px;
+    }
+
+    /* Панель кнопок - центрируем */
+    .row.d-flex.flex-wrap {
+        justify-content: center !important;
+        gap: 0.25rem;
+    }
+
+    /* Уменьшаем отступы между кнопками */
+    .btn.m-1 {
+        margin: 0.25rem !important;
+    }
+
+    /* Счетчик модерации - компактнее */
+    .d-inline-block.mt-2 {
+        font-size: 0.75rem;
+        text-align: center;
+        width: 100%;
+        margin-top: 0.5rem !important;
+    }
+}
+
+/* На очень маленьких экранах (<576px) - еще компактнее */
+@media (max-width: 576px) {
+    .btn-sm {
+        padding: 0.25rem 0.375rem;
+        min-width: 34px;
+        font-size: 0.875rem;
+    }
+
+    .btn-sm .bi {
+        font-size: 1rem;
+    }
+}
+
+/* ==========================================
+   SELECT УДОБРЕНИЙ
+   ========================================== */
+
+@media (max-width: 768px) {
+    /* Select на всю ширину с хорошим тапом */
+    #fertilizer-select {
+        font-size: 1rem;
+        padding: 0.75rem;
+        min-height: 48px; /* Минимум для удобного тапа */
+    }
+
+    /* Select2 dropdown оптимизация */
+    .select2-container--default .select2-selection--single {
+        height: 48px;
+        padding: 0.5rem;
+        font-size: 1rem;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 32px;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 46px;
+    }
+
+    /* Dropdown результаты */
+    .select2-results__option {
+        padding: 0.75rem;
+        font-size: 1rem;
+    }
+}
+
+/* ==========================================
+   ПЕРЕКЛЮЧАТЕЛЬ РЕЖИМОВ
+   ========================================== */
+
+@media (max-width: 768px) {
+    .view-mode-toggle {
+        position: sticky;
+        top: 0;
+        z-index: 99;
+        background: var(--bs-body-bg);
+        padding: 0.5rem;
+        margin-bottom: 0.5rem;
+        border-bottom: 2px solid var(--bs-border-color);
+        box-shadow: 0 2px 8px var(--fpm-shadow-sm);
+    }
+
+    .view-mode-toggle .btn {
+        flex: 1;
+        font-size: 1rem;
+        padding: 0.75rem;
+        min-height: 48px;
+    }
+}
+
+/* ==========================================
+   ACCORDION ИНФОРМАЦИЯ О УДОБРЕНИЯХ
+   ========================================== */
+
+@media (max-width: 768px) {
+    .accordion-button {
+        font-size: 1rem;
+        padding: 0.75rem 1rem;
+    }
+
+    .accordion-body {
+        font-size: 0.9rem;
+        padding: 1rem;
+    }
+}
+
+/* ==========================================
+   МОДАЛЬНЫЕ ОКНА
+   ========================================== */
+
+@media (max-width: 768px) {
+    /* Модальные окна на весь экран на мобильных */
+    .modal-dialog {
+        margin: 0;
+        max-width: 100%;
+        height: 100%;
+    }
+
+    .modal-content {
+        min-width: unset;
+        height: 100%;
+        border-radius: 0;
+    }
+
+    .modal-body {
+        font-size: 1rem;
+    }
+
+    /* Кнопки в модальных окнах - крупнее */
+    .modal-footer .btn,
+    .modal-body .btn {
+        min-height: 48px;
+        font-size: 1rem;
+        padding: 0.75rem 1.5rem;
+    }
+}
+
+/* ==========================================
+   INPUTS И ФОРМЫ
+   ========================================== */
+
+@media (max-width: 768px) {
+    /* Все input'ы удобны для тапа */
+    input[type="number"],
+    input[type="text"],
+    input[type="email"],
+    .form-control {
+        min-height: 48px;
+        font-size: 1rem;
+        padding: 0.75rem;
+    }
+
+    /* Ширина number input */
+    input[type="number"] {
+        width: 100%;
+        max-width: 150px;
+    }
+}
+
+/* ==========================================
+   ТАБЛИЦА (если в режиме таблицы на мобильном)
+   ========================================== */
+
+@media (max-width: 768px) {
+    /* Таблица - НЕ применяем max-height если используется масштабирование */
+    /* Масштабирование управляется из common_profile_fertilizers.html */
+    body:not(.view-mode-table) .table-responsive {
+        max-height: 70vh;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Более компактные ячейки - ТОЛЬКО если НЕТ масштабирования */
+    body:not(.view-mode-table) .table.fert td,
+    body:not(.view-mode-table) .table.fert th {
+        padding: 0.5rem 0.25rem;
+        font-size: 0.85rem;
+    }
+
+    /* Первая колонка (имя) шире - ТОЛЬКО если НЕТ масштабирования */
+    body:not(.view-mode-table) .table.fert tbody td:first-child {
+        min-width: 120px;
+        max-width: 150px;
+        font-size: 0.8rem;
+    }
+
+    /* Граммы поле */
+    .table.fert .grams-input {
+        width: 70px;
+        font-size: 0.9rem;
+        padding: 0.25rem;
+    }
+
+    /* Кнопки в таблице - применяем всегда */
+    .table.fert .btn-sm {
+        padding: 0.2rem 0.4rem;
+        font-size: 0.75rem;
+    }
+}
+
+/* ==========================================
+   STICKY ELEMENTS
+   ========================================== */
+
+@media (max-width: 768px) {
+    /* Balance header sticky */
+    .fert-balance-header {
+        position: sticky;
+        top: 0;
+        z-index: 98;
+    }
+
+    /* View mode toggle sticky (выше balance header) */
+    .view-mode-toggle {
+        z-index: 99;
+    }
+}
+
+/* ==========================================
+   ОТСТУПЫ И SPACING
+   ========================================== */
+
+@media (max-width: 768px) {
+    /* Уменьшаем вертикальные отступы между секциями */
+    .row.mt-3 {
+        margin-top: 1rem !important;
+    }
+
+    .mb-5 {
+        margin-bottom: 2rem !important;
+    }
+
+    /* Контейнер страницы */
+    .p-3 {
+        padding: 0.5rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    /* На совсем маленьких - еще компактнее */
+    .row.mt-3 {
+        margin-top: 0.5rem !important;
+    }
+
+    .mb-5 {
+        margin-bottom: 1rem !important;
+    }
+
+    .p-3 {
+        padding: 0.25rem !important;
+    }
+}
+
+/* ==========================================
+   UTILITY CLASSES
+   ========================================== */
+
+/* Скрыть на мобильных */
+.mobile-hide {
+    @media (max-width: 768px) {
+        display: none !important;
+    }
+}
+
+/* Показать только на мобильных */
+.mobile-only {
+    display: none;
+    @media (max-width: 768px) {
+        display: block !important;
+    }
+}
+
+/* ==========================================
+   LANDSCAPE ORIENTATION (горизонтальная ориентация)
+   ========================================== */
+
+@media (max-width: 768px) and (orientation: landscape) {
+    /* В горизонтальной ориентации - больше места для таблицы */
+    .table-responsive {
+        max-height: 55vh;
+    }
+
+    /* Модальные окна не на весь экран */
+    .modal-dialog {
+        height: auto;
+        max-height: 90vh;
+    }
+
+    .modal-content {
+        height: auto;
+    }
+}
+
+/* ==========================================
+   TOUCH IMPROVEMENTS
+   ========================================== */
+
+@media (max-width: 768px) {
+    /* Увеличиваем область тапа для всех кликабельных элементов */
+    a, button, .btn, input[type="button"], input[type="submit"] {
+        min-height: 44px; /* Apple HIG рекомендация */
+    }
+
+    /* Убираем hover эффекты на touch устройствах */
+    @media (hover: none) {
+        .btn:hover,
+        .table tr:hover {
+            background-color: inherit;
+        }
+    }
+
+    /* Улучшаем feedback при тапе */
+    .btn:active,
+    .table tr:active {
+        opacity: 0.7;
+        transition: opacity 0.1s;
+    }
+}
+
+/* ==========================================
+   DARK MODE SUPPORT
+   ========================================== */
+
+@media (prefers-color-scheme: dark) and (max-width: 768px) {
+    .view-mode-toggle {
+        background: var(--bs-dark);
+        border-bottom-color: var(--bs-gray-700);
+    }
+
+    .fert-balance-header {
+        background: var(--bs-dark);
+        border-bottom-color: var(--bs-gray-700);
+    }
+}
+
+/* ==========================================
+   СЕКЦИЯ КОНЦЕНТРАТОВ - КОМПАКТНЫЙ ДИЗАЙН
+   ========================================== */
+
+/* Скрываем десктопную версию на мобильных */
+@media (max-width: 768px) {
+    .concentrates-desktop-view {
+        display: none !important;
+    }
+
+    .concentrates-mobile-view {
+        display: block;
+    }
+}
+
+/* Показываем десктопную версию на больших экранах */
+@media (min-width: 769px) {
+    .concentrates-desktop-view {
+        display: block !important;
+    }
+
+    .concentrates-mobile-view {
+        display: none;
+    }
+}
+
+/* Цветовые метки для концентратов */
+.concentrate-label-a {
+    color: var(--fpm-concentrate-a); /* Bootstrap primary - синий */
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.concentrate-label-b {
+    color: var(--fpm-concentrate-b); /* Bootstrap danger - красный */
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* Список элементов концентратов */
+.concentrate-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.concentrate-list-item {
+    background: var(--bs-light);
+    border-radius: 8px;
+    padding: 0.75rem;
+    border-left: 4px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.concentrate-list-item:hover {
+    background: var(--bs-secondary-bg);
+    transform: translateX(4px);
+}
+
+.concentrate-item-a {
+    border-left-color: var(--fpm-concentrate-a);
+}
+
+.concentrate-item-b {
+    border-left-color: var(--fpm-concentrate-b);
+}
+
+/* Чекбокс */
+.concentrate-list-item .form-check {
+    margin: 0;
+}
+
+.concentrate-list-item .form-check-input {
+    min-width: 20px;
+    min-height: 20px;
+    margin-top: 0.1rem;
+    cursor: pointer;
+}
+
+.concentrate-list-item .form-check-label {
+    cursor: pointer;
+    font-size: 0.9rem;
+    user-select: none;
+    width: 100%;
+    margin-left: 0.5rem;
+}
+
+.concentrate-item-text {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.concentrate-item-grams {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Итоговая информация */
+.concentrate-summary {
+    background: var(--bs-light);
+    border-radius: 8px;
+    padding: 0.75rem;
+}
+
+.concentrate-summary-item {
+    text-align: center;
+    padding: 0.75rem;
+    border-radius: 8px;
+    background: var(--bs-body-bg);
+    border: 2px solid transparent;
+}
+
+.concentrate-summary-a {
+    border-color: var(--fpm-concentrate-a-light);
+}
+
+.concentrate-summary-b {
+    border-color: var(--fpm-concentrate-b-light);
+}
+
+/* Мобильная оптимизация секции концентратов */
+@media (max-width: 576px) {
+    .concentrate-list-item {
+        padding: 0.5rem;
+    }
+
+    .concentrate-item-text {
+        font-size: 0.85rem;
+    }
+
+    .concentrate-item-grams {
+        font-size: 0.8rem;
+    }
+
+    .concentrate-summary-item {
+        padding: 0.5rem;
+    }
+}

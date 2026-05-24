@@ -1,0 +1,756 @@
+/**
+ * Shared CSS for Balance Diagnostics Card
+ * Used in: OHPG calculator, Fertilizer calculator
+ */
+
+/* --- CSS Переменные --- */
+:root {
+  /* Backgrounds */
+  --diag-bg-group: #f8fafc;
+  --diag-bg-tooltip: #1a1a1a;
+  --diag-bg-neutral: #f1f5f9;
+  --diag-bg-rec: rgba(255, 193, 7, 0.1);
+  --diag-bg-card-start: #fffbeb;
+  --diag-bg-card-end: #fef3c7;
+
+  /* Borders */
+  --diag-border-neutral: #e2e8f0;
+  --diag-border-card: #fbbf24;
+  --diag-border-header: #fcd34d;
+
+  /* Text colors */
+  --diag-text-range: #6b7280;
+  --diag-text-tooltip: #fff;
+  --diag-text-rec-title: #92400e;
+  --diag-text-header-title: #92400e;
+  --diag-text-header-subtitle: #a16207;
+  --diag-text-icon: #dc2626;
+
+  /* Status colors - good */
+  --diag-good-bg: rgba(56, 218, 47, 0.2);
+  --diag-good-border: rgba(56, 218, 47, 0.4);
+
+  /* Status colors - warning */
+  --diag-warning-bg: rgba(255, 193, 7, 0.25);
+  --diag-warning-border: rgba(255, 193, 7, 0.5);
+
+  /* Status colors - danger */
+  --diag-danger-bg: rgba(220, 53, 69, 0.2);
+  --diag-danger-border: rgba(220, 53, 69, 0.4);
+  --diag-danger-text: #dc3545;
+
+  /* Status colors - critical */
+  --diag-critical-bg: rgba(206, 19, 113, 0.4);
+  --diag-critical-border: rgba(206, 19, 113, 0.6);
+  --diag-critical-text: rgba(206, 19, 113, 1);
+
+  /* Group title colors */
+  --diag-group-cations: #2563eb;
+  --diag-group-nitrogen: #16a34a;
+  --diag-group-phosphorus: #d97706;
+  --diag-group-micro: #0891b2;
+
+  /* Shadows */
+  --diag-shadow-tooltip: rgba(0,0,0,0.5);
+}
+
+/* --- Темная тема --- */
+[data-bs-theme="dark"] {
+  /* Backgrounds */
+  --diag-bg-group: var(--bs-secondary-bg);
+  --diag-bg-tooltip: #374151;
+  --diag-bg-neutral: var(--bs-tertiary-bg);
+  --diag-bg-rec: rgba(251, 191, 36, 0.15);
+  --diag-bg-card-start: #451a03;
+  --diag-bg-card-end: #78350f;
+
+  /* Borders */
+  --diag-border-neutral: var(--bs-border-color);
+  --diag-border-card: #b45309;
+  --diag-border-header: #d97706;
+
+  /* Text colors */
+  --diag-text-range: var(--bs-secondary-color);
+  --diag-text-tooltip: #f3f4f6;
+  --diag-text-rec-title: #fcd34d;
+  --diag-text-header-title: #fcd34d;
+  --diag-text-header-subtitle: #fde68a;
+  --diag-text-icon: #f87171;
+
+  /* Status colors - good */
+  --diag-good-bg: rgba(74, 222, 128, 0.2);
+  --diag-good-border: rgba(74, 222, 128, 0.4);
+
+  /* Status colors - warning */
+  --diag-warning-bg: rgba(251, 191, 36, 0.2);
+  --diag-warning-border: rgba(251, 191, 36, 0.4);
+
+  /* Status colors - danger */
+  --diag-danger-bg: rgba(248, 113, 113, 0.2);
+  --diag-danger-border: rgba(248, 113, 113, 0.4);
+  --diag-danger-text: #f87171;
+
+  /* Status colors - critical */
+  --diag-critical-bg: rgba(236, 72, 153, 0.3);
+  --diag-critical-border: rgba(236, 72, 153, 0.5);
+  --diag-critical-text: #f472b6;
+
+  /* Group title colors - ярче для темной темы */
+  --diag-group-cations: #60a5fa;
+  --diag-group-nitrogen: #4ade80;
+  --diag-group-phosphorus: #fbbf24;
+  --diag-group-micro: #22d3ee;
+}
+
+/* ==========================================
+   ДИАГНОСТИКА БАЛАНСА
+   ========================================== */
+
+/* Группы соотношений */
+.diag-group {
+    background: var(--diag-bg-group);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+}
+
+.diag-group-title {
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin-bottom: 0.25rem;
+}
+
+.diag-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+}
+
+/* Элемент соотношения */
+.diag-item {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+}
+
+.diag-item:hover {
+    transform: scale(1.05);
+}
+
+.diag-label {
+    font-weight: 600;
+}
+
+.diag-value {
+    font-family: 'SF Mono', Monaco, monospace;
+}
+
+.diag-range {
+    color: var(--diag-text-range);
+    font-size: 0.65rem;
+}
+
+/* Tooltip при клике */
+.diag-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--diag-bg-tooltip);
+    color: var(--diag-text-tooltip);
+    padding: 0.5rem 0.7rem;
+    border-radius: 0.375rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    line-height: 1.4;
+    white-space: normal;
+    max-width: 260px;
+    min-width: 160px;
+    text-align: center;
+    z-index: 1050;
+    margin-bottom: 8px;
+    box-shadow: 0 4px 16px var(--diag-shadow-tooltip);
+    animation: diagTooltipIn 0.15s ease;
+}
+
+@keyframes diagTooltipIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(5px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+.diag-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: var(--diag-bg-tooltip);
+}
+
+/* Статусы */
+.diag-good {
+    background: var(--diag-good-bg);
+    border: 1px solid var(--diag-good-border);
+}
+
+.diag-warning {
+    background: var(--diag-warning-bg);
+    border: 1px solid var(--diag-warning-border);
+}
+
+.diag-danger {
+    background: var(--diag-danger-bg);
+    border: 1px solid var(--diag-danger-border);
+}
+
+.diag-critical {
+    background: var(--diag-critical-bg);
+    border: 1px solid var(--diag-critical-border);
+    color: var(--diag-text-tooltip);
+}
+
+.diag-neutral {
+    background: var(--diag-bg-neutral);
+    border: 1px solid var(--diag-border-neutral);
+    opacity: 0.6;
+}
+
+/* Рекомендации */
+.diag-recommendations {
+    background: var(--diag-bg-rec);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+}
+
+.diag-rec-title {
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--diag-text-rec-title);
+}
+
+.diag-rec-list {
+    padding-left: 1.2rem;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0;
+}
+
+.diag-rec-list li {
+    margin-bottom: 0.15rem;
+}
+
+.diag-rec-critical {
+    color: var(--diag-critical-text);
+    font-weight: 600;
+}
+
+.diag-rec-danger {
+    color: var(--diag-danger-text);
+}
+
+/* ==========================================
+   МОБИЛЬНАЯ АДАПТАЦИЯ
+   ========================================== */
+
+@media (max-width: 576px) {
+    .diag-group {
+        padding: 0.4rem;
+    }
+
+    .diag-items {
+        gap: 0.15rem;
+    }
+
+    .diag-item {
+        padding: 0.15rem 0.3rem;
+        font-size: 0.7rem;
+    }
+
+    .diag-range {
+        display: none; /* Скрываем диапазон на маленьких экранах */
+    }
+
+    .diag-tooltip {
+        font-size: 0.75rem;
+        max-width: 200px;
+        min-width: 140px;
+    }
+
+    .diag-rec-list {
+        font-size: 0.7rem;
+    }
+}
+
+/* ==========================================
+   КАРТОЧКА ДИАГНОСТИКИ (для OHPG стиля)
+   ========================================== */
+
+.diagnostics-card {
+    background: linear-gradient(135deg, var(--diag-bg-card-start) 0%, var(--diag-bg-card-end) 100%);
+    border: 1px solid var(--diag-border-card);
+    border-radius: 10px;
+    margin-top: 12px;
+    overflow: visible;
+}
+
+.diagnostics-card .diag-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--diag-border-header);
+}
+
+.diagnostics-card .diag-header i {
+    color: var(--diag-text-icon);
+    font-size: 16px;
+}
+
+.diagnostics-card .diag-header-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--diag-text-header-title);
+}
+
+.diagnostics-card .diag-header-badge {
+    margin-left: 8px;
+    font-size: 12px;
+}
+
+.diagnostics-card .diag-header-subtitle {
+    font-size: 10px;
+    color: var(--diag-text-header-subtitle);
+}
+
+/* Селектор субстрата в header */
+.diagnostics-card .diag-header .diag-substrate-select {
+    margin-left: auto;
+    padding: 2px 6px;
+    font-size: 11px;
+    border: 1px solid var(--diag-border-card);
+    border-radius: 4px;
+    background: var(--bs-body-bg, #fff);
+    color: var(--bs-body-color, #212529);
+    cursor: pointer;
+}
+
+/* Кнопка матрицы в header */
+.diagnostics-card .diag-header .matrix-toggle-btn {
+    margin-left: 6px;
+    padding: 4px 8px;
+    font-size: 11px;
+}
+
+.diagnostics-card .diag-body {
+    padding: 12px;
+}
+
+/* Цвета групп */
+.diag-group-cations .diag-group-title { color: var(--diag-group-cations); }
+.diag-group-nitrogen .diag-group-title { color: var(--diag-group-nitrogen); }
+.diag-group-phosphorus .diag-group-title { color: var(--diag-group-phosphorus); }
+.diag-group-micro .diag-group-title { color: var(--diag-group-micro); }
+
+/* ==========================================
+   ПАНЕЛЬ АНТАГОНИЗМОВ (предупреждения)
+   ========================================== */
+
+.antagonism-panel {
+    display: none;
+    margin-top: 12px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+}
+
+.antagonism-panel.visible {
+    display: block;
+}
+
+/* Уровень предупреждения - warn (жёлтый) */
+.antagonism-panel.level-warn {
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    border-color: #fbbf24;
+}
+.antagonism-panel.level-warn .antagonism-header { color: #92400e; }
+.antagonism-panel.level-warn .antagonism-header i { color: #d97706; }
+
+/* Уровень предупреждения - high (оранжевый) */
+.antagonism-panel.level-high {
+    background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+    border-color: #fb923c;
+}
+.antagonism-panel.level-high .antagonism-header { color: #9a3412; }
+.antagonism-panel.level-high .antagonism-header i { color: #ea580c; }
+
+/* Уровень предупреждения - critical (красный) */
+.antagonism-panel.level-critical {
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+    border-color: #f87171;
+}
+.antagonism-panel.level-critical .antagonism-header { color: #991b1b; }
+.antagonism-panel.level-critical .antagonism-header i { color: #dc2626; }
+
+.antagonism-header {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.antagonism-list {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin: 0;
+    font-size: 0.875rem;
+}
+
+.antagonism-list li {
+    margin-bottom: 4px;
+}
+
+.antagonism-list li.level-warn { color: #92400e; }
+.antagonism-list li.level-high { color: #9a3412; }
+.antagonism-list li.level-critical { color: #991b1b; font-weight: 600; }
+
+/* Темная тема */
+[data-bs-theme="dark"] .antagonism-panel.level-warn {
+    background: linear-gradient(135deg, #451a03 0%, #78350f 100%);
+    border-color: #b45309;
+}
+[data-bs-theme="dark"] .antagonism-panel.level-warn .antagonism-header { color: #fcd34d; }
+
+[data-bs-theme="dark"] .antagonism-panel.level-high {
+    background: linear-gradient(135deg, #431407 0%, #7c2d12 100%);
+    border-color: #c2410c;
+}
+[data-bs-theme="dark"] .antagonism-panel.level-high .antagonism-header { color: #fdba74; }
+
+[data-bs-theme="dark"] .antagonism-panel.level-critical {
+    background: linear-gradient(135deg, #450a0a 0%, #7f1d1d 100%);
+    border-color: #dc2626;
+}
+[data-bs-theme="dark"] .antagonism-panel.level-critical .antagonism-header { color: #fca5a5; }
+
+[data-bs-theme="dark"] .antagonism-list li.level-warn { color: #fcd34d; }
+[data-bs-theme="dark"] .antagonism-list li.level-high { color: #fdba74; }
+[data-bs-theme="dark"] .antagonism-list li.level-critical { color: #fca5a5; }
+
+/* ==========================================
+   РЕДАКТИРОВАНИЕ СООТНОШЕНИЙ (inline input)
+   ========================================== */
+
+/* Редактируемые элементы - иконка карандаша */
+.diag-editable {
+    cursor: pointer;
+    padding-right: 16px !important;
+}
+
+.diag-editable::after {
+    content: '\270E'; /* Unicode pencil */
+    position: absolute;
+    right: 3px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.65rem;
+    opacity: 0.4;
+    transition: opacity 0.15s ease;
+    color: var(--bs-primary, #0d6efd);
+}
+
+.diag-editable:hover::after {
+    opacity: 1;
+}
+
+/* Inline input для редактирования */
+.diag-inline-input {
+    width: 50px;
+    height: 20px;
+    padding: 0 4px;
+    border: 1px solid var(--bs-primary, #0d6efd);
+    border-radius: 3px;
+    font-size: 0.75rem;
+    font-family: 'SF Mono', Monaco, monospace;
+    background: var(--bs-body-bg, #fff);
+    color: var(--bs-body-color, #212529);
+    text-align: center;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.25);
+    animation: diagInputIn 0.15s ease;
+}
+
+.diag-inline-input:focus {
+    border-color: var(--bs-primary, #0d6efd);
+}
+
+@keyframes diagInputIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Скрываем стрелки у number input */
+.diag-inline-input::-webkit-outer-spin-button,
+.diag-inline-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.diag-inline-input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* Темная тема */
+[data-bs-theme="dark"] .diag-inline-input {
+    background: var(--bs-tertiary-bg);
+    color: var(--bs-body-color);
+    border-color: var(--bs-primary);
+}
+
+[data-bs-theme="dark"] .diag-editable::after {
+    color: var(--bs-body-color);
+}
+
+/* ==========================================
+   КАРТОЧКИ СООТНОШЕНИЙ (внутри диагностики)
+   ========================================== */
+
+.diag-ratio-cards {
+    display: grid !important;
+    grid-template-columns: repeat(5, 1fr) !important;
+    gap: 8px;
+    padding: 12px;
+    border-bottom: 1px solid var(--diag-border-header);
+}
+
+/* Переопределяем .param-card внутри диагностики */
+.diag-ratio-cards > .param-card,
+.diag-ratio-cards > .ratio-card {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: var(--bs-body-bg, #fff) !important;
+    border: 1px solid var(--bs-border-color, #dee2e6) !important;
+    border-radius: 8px !important;
+    padding: 6px 8px !important;
+    text-align: center !important;
+    transition: border-color 0.2s, box-shadow 0.2s !important;
+    min-width: 0 !important;
+    min-height: 60px !important;
+}
+
+.diag-ratio-cards > .param-card:hover,
+.diag-ratio-cards > .ratio-card:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.diag-ratio-cards > .param-card label,
+.diag-ratio-cards > .ratio-card label {
+    display: block !important;
+    font-size: 0.65rem !important;
+    font-weight: 600 !important;
+    color: var(--bs-secondary-color, #6c757d) !important;
+    text-transform: uppercase !important;
+    margin-bottom: 2px !important;
+}
+
+.diag-ratio-cards > .param-card input,
+.diag-ratio-cards > .ratio-card input {
+    width: 60px !important;
+    height: 24px !important;
+    border: 1px solid var(--bs-border-color, #dee2e6) !important;
+    background: var(--bs-body-bg, #fff) !important;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    text-align: center !important;
+    color: var(--bs-body-color, #212529) !important;
+    padding: 2px 4px !important;
+    border-radius: 4px !important;
+}
+
+.diag-ratio-cards > .param-card input:focus,
+.diag-ratio-cards > .ratio-card input:focus {
+    outline: none !important;
+    border-color: var(--bs-primary, #0d6efd) !important;
+    box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.2) !important;
+}
+
+.diag-ratio-cards .ratio-hint {
+    display: block !important;
+    font-size: 0.6rem !important;
+    color: var(--bs-secondary-color, #6c757d) !important;
+    margin-top: 2px !important;
+}
+
+/* Статусы карточек */
+.diag-ratio-cards .ratio-card.ratio-good {
+    border-color: var(--diag-good-border);
+    background: var(--diag-good-bg);
+}
+
+.diag-ratio-cards .ratio-card.ratio-warning {
+    border-color: var(--diag-warning-border);
+    background: var(--diag-warning-bg);
+}
+
+.diag-ratio-cards .ratio-card.ratio-danger {
+    border-color: var(--diag-danger-border);
+    background: var(--diag-danger-bg);
+}
+
+.diag-ratio-cards .ratio-card.ratio-critical {
+    border-color: var(--diag-critical-border);
+    background: var(--diag-critical-bg);
+}
+
+/* Мобильная адаптация карточек */
+@media (max-width: 576px) {
+    .diag-ratio-cards {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 6px;
+        padding: 8px;
+    }
+
+    .diag-ratio-cards > .param-card,
+    .diag-ratio-cards > .ratio-card {
+        padding: 4px 6px !important;
+        min-height: 50px !important;
+    }
+
+    .diag-ratio-cards > .param-card input,
+    .diag-ratio-cards > .ratio-card input {
+        width: 50px !important;
+        font-size: 0.9rem !important;
+    }
+
+    .diag-ratio-cards .ratio-hint {
+        font-size: 0.55rem !important;
+    }
+}
+
+/* ==========================================
+   ПЛАВАЮЩАЯ МАТРИЦА СООТНОШЕНИЙ
+   ========================================== */
+
+.ratio-matrix-float {
+    position: fixed;
+    right: 10px;
+    top: 100px; /* привязка к верху вместо низа */
+    z-index: 1050;
+    background: var(--bs-body-bg, #fff);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+}
+
+.ratio-matrix-float .matrix-header {
+    background: #495057;
+    color: #fff;
+    padding: 6px 10px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+}
+
+.ratio-matrix-float .matrix-header .btn-close {
+    filter: invert(1);
+    opacity: 0.8;
+}
+
+.ratio-matrix-float .matrix-header .btn-close:hover {
+    opacity: 1;
+}
+
+.ratio-matrix-float table {
+    font-size: 0.75rem;
+    border-collapse: collapse;
+    margin: 0;
+}
+
+.ratio-matrix-float th,
+.ratio-matrix-float td {
+    padding: 4px 8px;
+    text-align: center;
+    border: 1px solid var(--bs-border-color, #dee2e6);
+    background-color: var(--bs-body-bg, #fff);
+}
+
+.ratio-matrix-float thead th {
+    background: var(--bs-secondary-bg, #e9ecef);
+    font-weight: 600;
+}
+
+.ratio-matrix-float .cell-header {
+    font-weight: 600;
+    background: var(--bs-secondary-bg, #e9ecef);
+}
+
+.ratio-matrix-float .cell-diagonal {
+    background: var(--bs-tertiary-bg, #f8f9fa);
+    color: #999;
+}
+
+/* Инпуты в матрице */
+.ratio-matrix-float .matrix-input {
+    width: 50px;
+    height: 24px;
+    padding: 2px 4px;
+    border: 1px solid var(--bs-border-color, #dee2e6);
+    border-radius: 3px;
+    background: var(--bs-body-bg, #fff);
+    color: inherit;
+    font-size: 0.75rem;
+    text-align: center;
+}
+
+.ratio-matrix-float .matrix-input:focus {
+    outline: none;
+    border-color: var(--bs-primary, #0d6efd);
+    box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.2);
+}
+
+/* Подсветка ключевых соотношений в матрице (непрозрачные цвета) */
+.ratio-matrix-float td.ratio-highlight-good {
+    background-color: #d3f3df;
+}
+
+.ratio-matrix-float td.ratio-highlight-warning {
+    background-color: #fbf0ce;
+}
+
+.ratio-matrix-float td.ratio-highlight-danger {
+    background-color: #fcdada;
+}
+
+.ratio-matrix-float td.ratio-highlight-critical {
+    background-color: #f0b8d4;
+}
+
+/* Темная тема - непрозрачные цвета для матрицы */
+[data-bs-theme="dark"] .ratio-matrix-float td.ratio-highlight-good {
+    background-color: #1a4d2e;
+}
+
+[data-bs-theme="dark"] .ratio-matrix-float td.ratio-highlight-warning {
+    background-color: #5c4a0a;
+}
+
+[data-bs-theme="dark"] .ratio-matrix-float td.ratio-highlight-danger {
+    background-color: #5c1a1a;
+}
+
+[data-bs-theme="dark"] .ratio-matrix-float td.ratio-highlight-critical {
+    background-color: #5c1a3d;
+}
+

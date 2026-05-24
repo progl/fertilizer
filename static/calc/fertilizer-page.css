@@ -1,0 +1,1963 @@
+/**
+ * Fertilizer Page Styles
+ * Вынесено из common_profile_fertilizers.html
+ */
+
+/* Prevent horizontal page overflow */
+html, body {
+    overflow-x: hidden !important;
+}
+
+/* Prevent flex children from overflowing */
+.fert-views-wrapper {
+    min-width: 0;
+    overflow-x: hidden;
+}
+
+/* ===== CSS Переменные ===== */
+:root {
+    /* Toolbar */
+    --fert-toolbar-bg: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    --fert-toolbar-border: #a5d6a7;
+    --fert-toolbar-btn-primary: linear-gradient(135deg, #26a69a 0%, #00897b 100%);
+    --fert-toolbar-btn-primary-hover: linear-gradient(135deg, #00897b 0%, #00796b 100%);
+    --fert-toolbar-btn-success: linear-gradient(135deg, #66bb6a 0%, #43a047 100%);
+    --fert-toolbar-btn-success-hover: linear-gradient(135deg, #43a047 0%, #388e3c 100%);
+    --fert-toolbar-warning: #f9a825;
+    --fert-toolbar-danger: #e53935;
+    --fert-toolbar-badge: #26a69a;
+
+    /* Концентраты A (синий) */
+    --fert-conc-a-bg: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    --fert-conc-a-text: #1565c0;
+    --fert-conc-a-dot: #1976d2;
+
+    /* Концентраты B (розовый) */
+    --fert-conc-b-bg: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%);
+    --fert-conc-b-text: #c2185b;
+    --fert-conc-b-dot: #d81b60;
+
+    /* Концентраты Micro (оранжевый) */
+    --fert-conc-micro-bg: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+    --fert-conc-micro-text: #e65100;
+    --fert-conc-micro-dot: #ef6c00;
+
+    /* Концентраты C (зеленый) */
+    --fert-conc-c-bg: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    --fert-conc-c-text: #2e7d32;
+    --fert-conc-c-dot: #43a047;
+
+    /* Вертикальная таблица */
+    --fert-v-header-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --fert-v-total-bg: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    --fert-v-macro-color: #1565c0;
+    --fert-v-macro-border: #1976d2;
+    --fert-v-micro-color: #7b1fa2;
+    --fert-v-micro-border: #9c27b0;
+    --fert-v-separator-bg: linear-gradient(90deg, #f5f5f5 0%, #e0e0e0 50%, #f5f5f5 100%);
+    --fert-v-separator-border: #ccc;
+    --fert-v-separator-text: #666;
+
+    /* Drag & Drop */
+    --fert-drag-bg: #e3f2fd;
+    --fert-drag-over-bg: #bbdefb;
+    --fert-drag-border: #1976d2;
+    --fert-drag-handle: #667eea;
+    --fert-drag-handle-muted: #aaa;
+
+    /* Auto-solve */
+    --fert-solve-log-bg: #f5f5f5;
+    --fert-solve-log-border: #ddd;
+    --fert-solve-log-text: #555;
+    --fert-solve-current-bg: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+    --fert-solve-current-border: #4caf50;
+
+    /* Summary panel */
+    --fert-summary-bg: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    --fert-summary-main-bg: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+    --fert-summary-ec-accent: #26a69a;
+    --fert-summary-litres-accent: #5c6bc0;
+
+    /* Tooltip */
+    --fert-tooltip-bg: #1a1a1a;
+    --fert-tooltip-text: #fff;
+
+    /* Матрица элементов */
+    --fert-matrix-header-bg: #495057;
+
+    /* Прочее */
+    --fert-input-focus: #667eea;
+    --fert-salt-grams: #1976d2;
+    --fert-empty-text: #d0d0d0;
+    --fert-npk-text: #888;
+    --fert-btn-outline-bg: transparent;
+}
+
+/* ===== Темная тема ===== */
+[data-bs-theme="dark"] {
+    /* Toolbar */
+    --fert-toolbar-bg: linear-gradient(135deg, #1e3a2f 0%, #2d4a3e 100%);
+    --fert-toolbar-border: #3d5a4e;
+    --fert-toolbar-btn-primary: linear-gradient(135deg, #1a7a6e 0%, #0d6358 100%);
+    --fert-toolbar-btn-primary-hover: linear-gradient(135deg, #0d6358 0%, #0a524a 100%);
+    --fert-toolbar-btn-success: linear-gradient(135deg, #3d8b4f 0%, #2d6b3f 100%);
+    --fert-toolbar-btn-success-hover: linear-gradient(135deg, #2d6b3f 0%, #1d5b2f 100%);
+    --fert-toolbar-warning: #d4880f;
+    --fert-toolbar-danger: #c62828;
+    --fert-toolbar-badge: #1a7a6e;
+
+    /* Концентраты A (синий) */
+    --fert-conc-a-bg: linear-gradient(135deg, #1e3a5f 0%, #2a4a6f 100%);
+    --fert-conc-a-text: #64b5f6;
+    --fert-conc-a-dot: #42a5f5;
+
+    /* Концентраты B (розовый) */
+    --fert-conc-b-bg: linear-gradient(135deg, #4a1f3d 0%, #5a2f4d 100%);
+    --fert-conc-b-text: #f48fb1;
+    --fert-conc-b-dot: #ec407a;
+
+    /* Концентраты Micro (оранжевый) */
+    --fert-conc-micro-bg: linear-gradient(135deg, #4a2f1a 0%, #5a3f2a 100%);
+    --fert-conc-micro-text: #ffb74d;
+    --fert-conc-micro-dot: #ff9800;
+
+    /* Концентраты C (зеленый) */
+    --fert-conc-c-bg: linear-gradient(135deg, #1e3a2f 0%, #2d4a3e 100%);
+    --fert-conc-c-text: #81c784;
+    --fert-conc-c-dot: #66bb6a;
+
+    /* Вертикальная таблица */
+    --fert-v-header-bg: linear-gradient(135deg, #4a5acf 0%, #5a4a8f 100%);
+    --fert-v-total-bg: linear-gradient(135deg, #0d7a6e 0%, #2acf6d 100%);
+    --fert-v-macro-color: #64b5f6;
+    --fert-v-macro-border: #42a5f5;
+    --fert-v-micro-color: #ce93d8;
+    --fert-v-micro-border: #ab47bc;
+    --fert-v-separator-bg: linear-gradient(90deg, #2a2a2a 0%, #3a3a3a 50%, #2a2a2a 100%);
+    --fert-v-separator-border: #555;
+    --fert-v-separator-text: #aaa;
+
+    /* Drag & Drop */
+    --fert-drag-bg: #1e3a5f;
+    --fert-drag-over-bg: #2a4a7f;
+    --fert-drag-border: #42a5f5;
+    --fert-drag-handle: #818cf8;
+    --fert-drag-handle-muted: #666;
+
+    /* Auto-solve */
+    --fert-solve-log-bg: #2a2a2a;
+    --fert-solve-log-border: #444;
+    --fert-solve-log-text: #aaa;
+    --fert-solve-current-bg: linear-gradient(135deg, #1e3a2f 0%, #2a3f2f 100%);
+    --fert-solve-current-border: #66bb6a;
+
+    /* Summary panel */
+    --fert-summary-bg: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+    --fert-summary-main-bg: linear-gradient(135deg, #1f2937 0%, #2d3748 100%);
+    --fert-summary-ec-accent: #1a7a6e;
+    --fert-summary-litres-accent: #7986cb;
+
+    /* Tooltip */
+    --fert-tooltip-bg: #374151;
+    --fert-tooltip-text: #f3f4f6;
+
+    /* Матрица элементов */
+    --fert-matrix-header-bg: var(--bs-tertiary-bg);
+
+    /* Прочее */
+    --fert-input-focus: #818cf8;
+    --fert-salt-grams: #64b5f6;
+    --fert-empty-text: #555;
+    --fert-npk-text: #888;
+    --fert-btn-outline-bg: var(--bs-body-bg);
+
+    /* Матрица элементов */
+    #element-matrix > thead > tr > th,
+    #element-matrix > tbody > tr > td:first-child {
+        background: var(--bs-secondary-bg);
+        color: var(--bs-body-color);
+    }
+
+    #matrix-toggle-toolbar {
+        background: var(--bs-tertiary-bg);
+        border-color: var(--bs-border-color);
+        color: var(--bs-body-color);
+    }
+
+    #matrix-toggle-toolbar:hover {
+        background: var(--bs-secondary-bg);
+    }
+
+    /* Плавающая матрица */
+    .element-matrix-float {
+        background: var(--bs-body-bg);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .element-matrix-float .matrix-header {
+        background: var(--fert-matrix-header-bg);
+        color: var(--bs-body-color);
+    }
+
+    .element-matrix-float .btn-close-white {
+        filter: invert(0);
+    }
+
+    /* Inputs */
+    .grams-input,
+    input[type="number"] {
+        background-color: var(--bs-body-bg);
+        color: var(--bs-body-color);
+        border-color: var(--bs-border-color);
+    }
+
+    /* Таблицы */
+    .table-hover tbody tr:hover {
+        background-color: var(--bs-tertiary-bg);
+    }
+
+    /* Модалки */
+    .modal-content {
+        background: var(--bs-body-bg);
+        color: var(--bs-body-color);
+    }
+
+    /* Вертикальная таблица - темная тема */
+    .fert-vertical-table {
+        border-color: var(--bs-border-color);
+    }
+
+    .fert-vertical-table th,
+    .fert-vertical-table td {
+        border-color: var(--bs-border-color);
+    }
+
+    .fert-v-fert-header {
+        background: var(--bs-secondary-bg);
+    }
+
+    .fert-v-name {
+        color: var(--bs-body-color);
+    }
+
+    .fert-v-element-name {
+        background: var(--bs-secondary-bg);
+    }
+
+    .fert-v-total {
+        background: var(--bs-secondary-bg);
+    }
+
+    .fert-vertical-table tbody tr:nth-child(even):not(.fert-v-separator) td {
+        background-color: var(--bs-tertiary-bg);
+    }
+
+    .fert-vertical-table tbody tr:nth-child(even):not(.fert-v-separator) .fert-v-element-name {
+        background-color: var(--bs-secondary-bg);
+    }
+
+    .fert-vertical-table tbody tr:hover:not(.fert-v-separator) td {
+        background-color: var(--fert-drag-bg) !important;
+    }
+
+    /* Концентраты - темная тема */
+    .conc-list {
+        background: var(--bs-tertiary-bg);
+    }
+
+    .conc-list-item {
+        border-bottom-color: var(--bs-border-color);
+    }
+
+    .conc-salt-name {
+        color: var(--bs-body-color);
+    }
+
+    .conc-footer {
+        background: var(--bs-secondary-bg);
+        border-top-color: var(--bs-border-color);
+    }
+
+    .blocking-group {
+        background: var(--bs-secondary-bg);
+    }
+
+    .blocking-title {
+        color: var(--bs-secondary-color);
+        border-bottom-color: var(--bs-border-color);
+    }
+
+    .blocking-item .el {
+        color: var(--bs-body-color);
+    }
+
+    .blocking-legend {
+        background: var(--bs-tertiary-bg);
+        border-color: var(--bs-border-color);
+    }
+
+    /* Summary panel - темная тема */
+    .summary-panel {
+        border-color: var(--bs-border-color);
+    }
+
+    .summary-main {
+        border-bottom-color: var(--bs-border-color);
+    }
+
+    .summary-item {
+        background: var(--bs-secondary-bg);
+        border-color: var(--bs-border-color);
+    }
+
+    .summary-label {
+        color: var(--bs-secondary-color);
+    }
+
+    .summary-input {
+        background: var(--bs-body-bg);
+        color: var(--bs-body-color);
+        border-color: var(--bs-border-color);
+    }
+
+    .summary-badge {
+        background: var(--bs-secondary-bg);
+        border-color: var(--bs-border-color);
+    }
+
+    .summary-details-row {
+        background: var(--bs-tertiary-bg);
+    }
+
+    .summary-detail {
+        background: var(--bs-secondary-bg);
+        border-color: var(--bs-border-color);
+    }
+
+    .ec-litres-group {
+        background: var(--bs-secondary-bg);
+    }
+
+    .ec-litres-group .summary-ec {
+        border-right-color: var(--bs-border-color);
+    }
+
+    /* Auto-solve - темная тема */
+    .auto-solve-log {
+        background: var(--fert-solve-log-bg);
+        color: var(--fert-solve-log-text);
+        border-color: var(--fert-solve-log-border);
+    }
+
+    /* Модалка выбора удобрений */
+    #selectFertilizerModal .fert-item:hover {
+        background-color: var(--bs-tertiary-bg);
+    }
+
+    #selectFertilizerModal .fert-item:has(.fert-checkbox:checked) {
+        background-color: var(--fert-drag-bg);
+    }
+}
+
+/* Outline кнопки - фон в темной теме */
+.btn[class*="btn-outline-"] {
+    background-color: var(--fert-btn-outline-bg);
+}
+
+#qrcode {
+    display: inline-block;
+}
+
+#qrcode canvas {
+    max-width: 150px !important;
+    max-height: 150px !important;
+    width: 150px !important;
+    height: 150px !important;
+}
+
+.modal-content {
+    min-width: 350px;
+}
+
+/* Адаптивная матрица элементов */
+#element-matrix {
+    font-size: 0.7rem;
+    max-width: 200px !important;
+}
+
+#element-matrix > tbody > tr > td,
+#element-matrix > thead > tr > th {
+    width: 26px;
+    padding: 0.1rem 0.05rem;
+    text-align: center;
+}
+
+#element-matrix > thead > tr > th {
+    font-weight: 600;
+    background: var(--bs-tertiary-bg);
+}
+
+#element-matrix > tbody > tr > td:first-child {
+    font-weight: 600;
+    background: var(--bs-tertiary-bg);
+}
+
+/* Кнопка матрицы в toolbar */
+#matrix-toggle-toolbar {
+    background: var(--bs-secondary-bg);
+    border-color: var(--bs-border-color);
+    color: var(--bs-body-color);
+}
+
+#matrix-toggle-toolbar:hover {
+    background: var(--bs-tertiary-bg);
+}
+
+#matrix-toggle-toolbar.active {
+    background: var(--bs-success);
+    border-color: var(--bs-success);
+    color: var(--bs-white);
+}
+
+/* Плавающая матрица */
+.element-matrix-float {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    z-index: 1050;
+    background: var(--bs-body-bg);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+}
+
+.element-matrix-float .matrix-header {
+    background: var(--fert-matrix-header-bg);
+    color: var(--bs-white);
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+}
+
+.element-matrix-float #element-matrix {
+    font-size: 0.7rem;
+    margin: 0;
+}
+
+.element-matrix-float #element-matrix th,
+.element-matrix-float #element-matrix td {
+    padding: 2px 4px;
+    text-align: center;
+}
+
+.element-matrix-float #element-matrix thead th {
+    background: var(--bs-tertiary-bg);
+    font-weight: 600;
+}
+
+.element-matrix-float #element-matrix tbody td:first-child {
+    background: var(--bs-tertiary-bg);
+    font-weight: 600;
+}
+
+
+input[type="number"] {
+    width: 100px;
+}
+
+.zoom-controls button {
+    margin: 2px; /* минимальные отступы */
+    padding: 3px 6px; /* уменьшенный padding */
+    font-size: 10px; /* уменьшенный шрифт на кнопках */
+    width: 50px; /* уменьшенная ширина кнопок */
+}
+
+/* Улучшения таблицы: компактность и удобство прокрутки */
+.table-responsive {
+    max-height: 60vh;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+/* Убираем скроллы на десктопе */
+@media (min-width: 992px) {
+    .table-responsive {
+        max-height: none !important;
+        overflow-x: visible !important;
+        overflow-y: visible !important;
+    }
+}
+
+/* ====== Toolbar стили ====== */
+.fert-toolbar {
+    background: var(--fert-toolbar-bg);
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    border: 1px solid var(--fert-toolbar-border);
+}
+
+.fert-toolbar .btn {
+    border-radius: 6px;
+}
+
+.fert-toolbar .btn-primary {
+    background: var(--fert-toolbar-btn-primary);
+    border: none;
+}
+
+.fert-toolbar .btn-primary:hover {
+    background: var(--fert-toolbar-btn-primary-hover);
+}
+
+.fert-toolbar .btn-success {
+    background: var(--fert-toolbar-btn-success);
+    border: none;
+}
+
+.fert-toolbar .btn-success:hover {
+    background: var(--fert-toolbar-btn-success-hover);
+}
+
+.fert-toolbar .btn-outline-warning {
+    color: var(--fert-toolbar-warning);
+    border-color: var(--fert-toolbar-warning);
+}
+
+.fert-toolbar .btn-outline-warning:hover {
+    background: var(--fert-toolbar-warning);
+    color: var(--bs-white);
+}
+
+.fert-toolbar .btn-outline-danger {
+    color: var(--fert-toolbar-danger);
+    border-color: var(--fert-toolbar-danger);
+}
+
+.fert-toolbar .btn-outline-danger:hover {
+    background: var(--fert-toolbar-danger);
+    color: var(--bs-white);
+}
+
+.fert-toolbar .vr {
+    opacity: 0.3;
+}
+
+.fert-toolbar .badge {
+    font-size: 0.7rem;
+    background: var(--fert-toolbar-badge);
+}
+
+/* Кнопка компактности - скрыта по умолчанию, показывается в vertical режиме */
+#fert-v-width-toggle-toolbar {
+    display: none !important;
+}
+
+body.mode-vertical #fert-v-width-toggle-toolbar {
+    display: inline-block !important;
+}
+
+.table.fert thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: var(--bs-body-bg);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Закрепление обоих рядов заголовков при вертикальной прокрутке */
+.table.fert thead tr:first-child th {
+    top: 0;
+    z-index: 3;
+    background-color: var(--bs-body-bg);
+}
+
+.table.fert thead tr:nth-child(2) th {
+    top: 40px; /* Высота первого ряда заголовков */
+    z-index: 3;
+    background-color: var(--bs-body-bg);
+}
+
+/* Закрепление первой колонки (Имя) */
+.table.fert thead th:first-child,
+.table.fert tbody td:first-child {
+    position: sticky;
+    left: 0;
+    background-color: var(--bs-body-bg);
+    z-index: 1;
+}
+
+/* Разрешаем перенос кнопок внутри колонки Имя */
+.table.fert tbody td.fertilizer-name > div {
+    flex-wrap: wrap;
+}
+
+.table.fert thead th:first-child {
+    z-index: 4; /* Выше чтобы перекрывать и заголовки и ячейки */
+}
+
+.table.fert thead tr:nth-child(2) th:first-child {
+    z-index: 4;
+}
+
+/* Закрепление второй колонки (Граммы) */
+.table.fert thead th:nth-child(2),
+.table.fert tbody td:nth-child(2) {
+    position: sticky;
+    left: auto; /* Будет рассчитано через CSS или JS */
+    background-color: var(--bs-body-bg);
+    z-index: 1;
+}
+
+.table.fert thead th:nth-child(2) {
+    z-index: 4;
+}
+
+/* Тень для визуального отделения закрепленной колонки */
+.table.fert thead th:first-child::after,
+.table.fert tbody td:first-child::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 1px;
+    background: rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.badge-bottle {
+    font-size: 0.75rem;
+}
+
+/* Тоггл скрытия текста на кнопках: прячем текст, оставляем иконки */
+.btn-text-hidden .btn:not(#toggle-btn-text) {
+    font-size: 0 !important;
+}
+
+/* Исключение: у кнопки-тоггла #toggle-btn-text текст остаётся видимым,
+   чтобы всегда можно было вернуть подписи на кнопках */
+.btn-text-hidden #toggle-btn-text {
+    font-size: .875rem !important;
+}
+
+.btn-text-hidden .btn .bi,
+.btn-text-hidden .btn svg {
+    font-size: 1rem !important;
+}
+
+/* Кнопки в тулбаре - нормальный размер иконок */
+.fert-toolbar #de-select-all-button,
+.fert-toolbar #toggle-favorites {
+    padding: 0.25rem 0.5rem !important;
+}
+
+.fert-toolbar #de-select-all-button .bi,
+.fert-toolbar #toggle-favorites .bi {
+    font-size: 0.875rem !important;
+}
+
+/* Скрытие кнопок "Выбрать все" и "Убрать все" на мобильных устройствах */
+@media (max-width: 768px) {
+    #select-all-button,
+    #de-select-all-button {
+        display: none !important;
+    }
+}
+
+/* Кнопка переключения desktop-режима (только на мобильных) */
+#desktop-mode-toggle {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    #desktop-mode-toggle {
+        display: inline-block;
+    }
+}
+
+/* Desktop-режим на мобильных: таблица уменьшается и появляется горизонтальная прокрутка */
+.table-responsive.force-desktop-mode {
+    font-size: 0.7rem;
+}
+
+.table-responsive.force-desktop-mode .table.fert {
+    font-size: 0.7rem;
+}
+
+.table-responsive.force-desktop-mode .table.fert th,
+.table-responsive.force-desktop-mode .table.fert td {
+    padding: 0.25rem;
+    white-space: nowrap;
+}
+
+.table-responsive.force-desktop-mode button {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.3rem;
+}
+
+/* Управление видимостью режимов таблица/карточки */
+/* По умолчанию на desktop показываем таблицу, на mobile - карточки */
+@media (min-width: 769px) {
+    .fert-table-view {
+        display: block;
+        overflow-x: auto;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    .fert-cards-view {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .fert-table-view {
+        display: none;
+    }
+
+    .fert-cards-view {
+        display: block;
+    }
+}
+
+/* Скрываем вертикальный вид по умолчанию */
+.fert-vertical-view {
+    display: none;
+}
+
+/* Классы для принудительного переключения режимов (переопределяют media queries) */
+body.mode-table .fert-table-view {
+    display: block !important;
+}
+
+body.mode-table .fert-cards-view,
+body.mode-table .fert-vertical-view {
+    display: none !important;
+}
+
+body.mode-vertical .fert-vertical-view {
+    display: block !important;
+}
+
+body.mode-vertical .fert-table-view,
+body.mode-vertical .fert-cards-view {
+    display: none !important;
+}
+
+body.mode-cards .fert-cards-view {
+    display: block !important;
+}
+
+body.mode-cards .fert-table-view,
+body.mode-cards .fert-vertical-view {
+    display: none !important;
+}
+
+/* Старые классы для совместимости */
+body.view-mode-table .fert-table-view {
+    display: block !important;
+}
+
+body.view-mode-table .fert-cards-view {
+    display: none !important;
+}
+
+body.view-mode-cards .fert-table-view {
+    display: none !important;
+}
+
+body.view-mode-cards .fert-cards-view {
+    display: block !important;
+}
+
+/* ======== Стили вертикальной таблицы ======== */
+.fert-vertical-view {
+    overflow-x: auto;
+    margin: 0 -0.5rem;
+    padding: 0 0.5rem;
+}
+
+.fert-vertical-table {
+    font-size: 0.8rem;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: auto;
+    border: 1px solid var(--bs-border-color);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.fert-vertical-table th,
+.fert-vertical-table td {
+    border: 1px solid var(--bs-border-color);
+    padding: 0.2rem 0.35rem;
+    vertical-align: middle;
+}
+
+/* Заголовок колонки Элемент */
+.fert-v-element-header {
+    width: 45px;
+    min-width: 45px;
+    font-weight: 600;
+    font-size: 0.7rem;
+    background: var(--fert-v-header-bg);
+    color: var(--bs-white);
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    text-align: center;
+}
+
+/* Заголовки удобрений */
+.fert-v-fert-header {
+    width: 130px;
+    min-width: 80px;
+    max-width: 200px;
+    text-align: center;
+    vertical-align: top;
+    padding: 0.25rem 0.2rem !important;
+    background: var(--bs-tertiary-bg);
+    white-space: normal !important;
+    position: relative;
+    resize: horizontal;
+    overflow: hidden;
+}
+
+.fert-v-fert-header .resize-handle {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    cursor: col-resize;
+    background: transparent;
+}
+
+.fert-v-fert-header .resize-handle:hover {
+    background: rgba(102, 126, 234, 0.3);
+}
+
+.fert-v-name {
+    font-size: 0.65rem;
+    font-weight: 500;
+    line-height: 1.25;
+    word-break: break-all !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    white-space: pre-wrap !important;
+    hyphens: auto;
+    margin-bottom: 4px;
+    color: var(--bs-body-color);
+    display: block;
+    width: 100%;
+}
+
+.fert-v-grams-input {
+    width: 70px !important;
+    text-align: center;
+    font-size: 0.8rem;
+    padding: 0.2rem 0.25rem;
+    border: 1px solid var(--bs-border-color);
+    border-radius: 4px;
+    margin: 0;
+    display: block;
+    /* Разрешаем выделение текста в input */
+    -webkit-user-select: text !important;
+    user-select: text !important;
+    /* Отключаем перетаскивание для input */
+    -webkit-user-drag: none;
+    user-drag: none;
+}
+
+.fert-v-grams-input:focus {
+    border-color: var(--fert-input-focus);
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+    outline: none;
+}
+
+/* Отключаем drag для input внутри draggable элементов */
+[draggable="true"] input {
+    -webkit-user-drag: none;
+    user-drag: none;
+    pointer-events: auto;
+}
+
+/* Колонка ИТОГО в заголовке */
+.fert-v-total-header {
+    font-weight: 700;
+    background: var(--fert-v-total-bg);
+    color: var(--bs-white);
+    min-width: 70px;
+    text-align: center;
+    position: sticky;
+    right: 0;
+    z-index: 2;
+}
+
+/* Ячейка с названием элемента */
+.fert-v-element-name {
+    font-weight: 600;
+    background: var(--bs-tertiary-bg);
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    white-space: nowrap;
+    padding-left: 0.6rem !important;
+}
+
+/* Значения в ячейках */
+.fert-v-value {
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+}
+
+.fert-v-empty {
+    text-align: center;
+    color: var(--fert-empty-text);
+}
+
+/* Итого по строке */
+.fert-v-total {
+    font-weight: 700;
+    text-align: center;
+    background: var(--bs-tertiary-bg); /* Нейтральный фон, цвет устанавливается через JS */
+    position: sticky;
+    right: 0;
+    z-index: 1;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Разделитель Микроэлементы */
+.fert-v-separator td {
+    background: var(--fert-v-separator-bg);
+    padding: 0.3rem 0.6rem !important;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--fert-v-separator-text);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-top: 2px solid var(--fert-v-separator-border);
+    border-bottom: 2px solid var(--fert-v-separator-border);
+}
+
+/* Цвета для макро и микро элементов */
+.fert-v-macro .fert-v-element-name {
+    color: var(--fert-v-macro-color);
+    border-left: 3px solid var(--fert-v-macro-border);
+}
+
+.fert-v-micro .fert-v-element-name {
+    color: var(--fert-v-micro-color);
+    border-left: 3px solid var(--fert-v-micro-border);
+}
+
+/* Чередование строк */
+.fert-vertical-table tbody tr:nth-child(even):not(.fert-v-separator) td {
+    background-color: var(--bs-tertiary-bg);
+}
+
+.fert-vertical-table tbody tr:nth-child(even):not(.fert-v-separator) .fert-v-element-name {
+    background-color: var(--bs-secondary-bg);
+}
+
+/* ИТОГО подсвечивается динамически через JS (over/under) */
+
+/* Hover эффект */
+.fert-vertical-table tbody tr:hover:not(.fert-v-separator) td {
+    background-color: var(--fert-drag-bg) !important;
+}
+
+/* ИТОГО сохраняет свой цвет (over/under) при hover */
+
+/* Заголовок колонки - верхняя строка с кнопками */
+.fert-v-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2px;
+}
+
+.fert-v-actions {
+    display: flex;
+    gap: 2px;
+}
+
+.fert-v-actions .btn {
+    padding: 0 2px;
+    line-height: 1;
+    font-size: 0.7rem;
+}
+
+.fert-v-delete-btn,
+.fert-v-fav-btn {
+    opacity: 0.6;
+}
+
+.fert-v-delete-btn:hover,
+.fert-v-fav-btn:hover {
+    opacity: 1;
+}
+
+.fert-v-fav-btn.text-warning {
+    opacity: 1;
+}
+
+.fert-v-npk {
+    font-size: 0.55rem;
+    color: var(--fert-npk-text);
+    margin-bottom: 3px;
+    font-family: monospace;
+}
+
+/* Компактный режим вертикальной таблицы */
+.fert-v-compact .fert-v-fert-header {
+    width: auto !important;
+    min-width: 70px !important;
+    max-width: 100px !important;
+}
+
+.fert-v-compact .fert-v-name {
+    font-size: 0.55rem;
+}
+
+.fert-v-compact .fert-v-npk {
+    display: none;
+}
+
+.fert-v-compact .fert-v-grams-input {
+    width: 50px !important;
+    font-size: 0.7rem;
+}
+
+.fert-v-controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* Drag & Drop стили - вертикальная таблица */
+.fert-v-drag-handle {
+    font-size: 0.55rem;
+    color: var(--fert-drag-handle-muted);
+    cursor: grab;
+    letter-spacing: -1px;
+}
+
+.fert-v-drag-handle:hover {
+    color: var(--fert-drag-handle);
+}
+
+.fert-v-fert-header[draggable="true"] {
+    cursor: grab;
+}
+
+.fert-v-fert-header[draggable="true"]:active {
+    cursor: grabbing;
+}
+
+.fert-v-dragging {
+    opacity: 0.5;
+    background: var(--fert-drag-bg) !important;
+}
+
+.fert-v-drag-over {
+    background: var(--fert-drag-over-bg) !important;
+    box-shadow: inset 0 0 0 2px var(--fert-drag-border);
+}
+
+/* Drag & Drop стили - горизонтальная таблица */
+.table.fert tbody tr[draggable="true"] {
+    cursor: grab;
+}
+
+.table.fert tbody tr[draggable="true"]:active {
+    cursor: grabbing;
+}
+
+.table.fert tbody tr.dragging-row {
+    opacity: 0.5;
+    background: var(--fert-drag-bg) !important;
+}
+
+.table.fert tbody tr.dragging-row td {
+    background: var(--fert-drag-bg) !important;
+}
+
+.table.fert tbody tr.drag-over-row {
+    box-shadow: inset 0 -2px 0 var(--fert-drag-border);
+}
+
+.table-drag-handle {
+    cursor: grab;
+    color: var(--fert-drag-handle-muted);
+    margin-right: 5px;
+}
+
+.table-drag-handle:hover {
+    color: var(--fert-drag-handle);
+}
+
+.fert-v-micro .fert-v-value,
+.fert-v-micro .fert-v-total {
+    font-size: 0.8rem;
+}
+
+/* Режим масштабирования таблицы - применяется когда таблица не влезает */
+body.view-mode-table.table-fit-active .fert-table-view {
+    overflow: visible !important;
+    position: relative;
+}
+
+body.view-mode-table.table-fit-active .fert-table-view .table-responsive {
+    overflow: visible !important;
+    max-height: none !important;
+    transform-origin: top left;
+    /* transform устанавливается через JS */
+}
+
+/* В масштабированном режиме делаем элементы компактнее */
+body.view-mode-table.table-fit-active .table.fert .delete-button,
+body.view-mode-table.table-fit-active .table.fert .fav-star-btn {
+    padding: 0.15rem 0.3rem !important;
+    font-size: 0.75rem !important;
+}
+
+body.view-mode-table.table-fit-active .table.fert .badge-bottle {
+    font-size: 0.7rem !important;
+    padding: 0.15rem 0.3rem !important;
+}
+
+/* ==========================================
+   МОБИЛЬНАЯ АДАПТАЦИЯ: Summary Line и Объем
+   ========================================== */
+
+/* Summary line - адаптация для мобильных */
+@media (max-width: 768px) {
+    #summary-line {
+        font-size: 0.8rem !important;
+        gap: 0.5rem !important;
+        justify-content: flex-start;
+    }
+
+    #summary-line .vr {
+        display: none; /* Убираем вертикальные разделители */
+    }
+
+    /* Группировка блока с EC на отдельную строку */
+    #summary-line .ec-control-group {
+        order: 10;
+        flex-basis: 100%;
+        justify-content: flex-start;
+    }
+
+    /* Группировка блока с литрами на отдельную строку */
+    #summary-line .litres-control-group {
+        order: 20;
+        flex-basis: 100%;
+        justify-content: flex-start;
+    }
+
+    /* Кнопка переключения матрицы */
+    #summary-line > div {
+        order: 30;
+        width: 100%;
+        margin-top: 0.5rem;
+    }
+
+    /* Делаем инпуты крупнее для мобильных */
+    #summary-line input[type="number"] {
+        min-height: 42px !important;
+        font-size: 1rem !important;
+        width: 80px !important;
+    }
+
+    #summary-line .btn-sm {
+        min-height: 42px !important;
+        min-width: 42px !important;
+        padding: 0.25rem 0.5rem !important;
+    }
+
+    /* Скрываем лишнее на мобильных */
+    #summary-line #mini-matrix-inline {
+        display: none !important;
+    }
+}
+
+/* Очень маленькие экраны */
+@media (max-width: 576px) {
+    #summary-line {
+        font-size: 0.75rem !important;
+        padding: 0.5rem !important;
+    }
+
+    #summary-line span {
+        flex-basis: auto;
+    }
+
+    /* Каждый блок на своей строке */
+    #summary-line > * {
+        margin-bottom: 0.25rem;
+    }
+}
+
+/* ==========================================
+   МОБИЛЬНАЯ АДАПТАЦИЯ: Концентраты
+   ========================================== */
+
+@media (max-width: 768px) {
+    /* Карточка концентратов */
+    #card-concentrates .card-body {
+        padding: 0.75rem;
+    }
+
+    /* Поля объемов */
+    .concentrate-volumes .form-label {
+        font-size: 0.95rem;
+        margin-bottom: 0.35rem;
+        font-weight: 600;
+    }
+
+    .concentrate-volumes .input-group {
+        flex-wrap: nowrap;
+    }
+
+    .concentrate-volumes .concentrate-volume-input {
+        min-height: 48px !important;
+        width: 100% !important;
+        font-size: 1.1rem !important;
+        font-weight: 600;
+        text-align: center;
+        padding: 0.5rem 0.75rem !important;
+    }
+
+    .concentrate-volumes .input-group-text {
+        min-height: 48px;
+        font-size: 1rem;
+        font-weight: 500;
+        padding: 0.5rem 0.75rem;
+    }
+
+    /* Список удобрений */
+    .concentrate-list-item {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+
+    .concentrate-list-item .form-check-input {
+        min-width: 24px;
+        min-height: 24px;
+    }
+
+    .concentrate-list-item .form-check-label {
+        font-size: 0.9rem;
+    }
+
+    /* Итоги */
+    .concentrate-summary-item {
+        padding: 0.75rem;
+    }
+
+    .concentrate-summary-item .fw-bold {
+        font-size: 1.1rem;
+    }
+
+    .concentrate-summary-item .small {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 576px) {
+    /* Еще компактнее на маленьких экранах */
+    .concentrate-volumes .col-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .concentrate-volumes .row {
+        row-gap: 0.75rem;
+    }
+
+    .concentrate-volumes .concentrate-volume-input {
+        min-height: 52px !important;
+        width: 100% !important;
+        font-size: 1.2rem !important;
+    }
+
+    .concentrate-volumes .input-group-text {
+        min-height: 52px;
+        font-size: 1.1rem;
+    }
+
+    .concentrate-list-item {
+        padding: 0.5rem;
+        font-size: 0.85rem;
+    }
+
+    .concentrate-summary .row > .col-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Desktop - нормальные размеры */
+@media (min-width: 769px) {
+    .concentrate-volumes .concentrate-volume-input {
+        height: 38px;
+        width: 100% !important;
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .concentrate-volumes .input-group-text {
+        height: 38px;
+    }
+}
+
+/* ====== Автоподбор рецепта (компактный) ====== */
+.auto-solve-log {
+    white-space: pre-wrap;
+    font-size: 11px;
+    color: var(--fert-solve-log-text);
+    background: var(--fert-solve-log-bg);
+    padding: 8px;
+    max-height: 200px;
+    overflow: auto;
+    border-radius: 4px;
+    border: 1px solid var(--fert-solve-log-border);
+}
+
+.auto-solve-current {
+    background: var(--fert-solve-current-bg);
+    padding: 6px 10px;
+    border-radius: 6px;
+    border-left: 3px solid var(--fert-solve-current-border);
+}
+
+.auto-solve-result {
+    margin-top: 0.5rem;
+}
+
+/* ====== Концентраты (компактные 3 колонки) ====== */
+.conc-label-a {
+    background: var(--fert-conc-a-bg) !important;
+    color: var(--fert-conc-a-text);
+    font-weight: 600;
+}
+
+.conc-label-b {
+    background: var(--fert-conc-b-bg) !important;
+    color: var(--fert-conc-b-text);
+    font-weight: 600;
+}
+
+.conc-label-micro {
+    background: var(--fert-conc-micro-bg) !important;
+    color: var(--fert-conc-micro-text);
+    font-weight: 600;
+}
+
+.conc-label-c {
+    background: var(--fert-conc-c-bg) !important;
+    color: var(--fert-conc-c-text);
+    font-weight: 600;
+}
+
+.conc-column {
+    border-radius: 8px;
+    border: 1px solid var(--bs-border-color);
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.conc-column-header {
+    padding: 8px 12px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.conc-column-a .conc-column-header {
+    background: var(--fert-conc-a-bg);
+    color: var(--fert-conc-a-text);
+}
+
+.conc-column-b .conc-column-header {
+    background: var(--fert-conc-b-bg);
+    color: var(--fert-conc-b-text);
+}
+
+.conc-column-micro .conc-column-header {
+    background: var(--fert-conc-micro-bg);
+    color: var(--fert-conc-micro-text);
+}
+
+.conc-column-c .conc-column-header {
+    background: var(--fert-conc-c-bg);
+    color: var(--fert-conc-c-text);
+}
+
+.conc-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.conc-dot-a {
+    background: var(--fert-conc-a-dot);
+}
+
+.conc-dot-b {
+    background: var(--fert-conc-b-dot);
+}
+
+.conc-dot-micro {
+    background: var(--fert-conc-micro-dot);
+}
+
+.conc-dot-c {
+    background: var(--fert-conc-c-dot);
+}
+
+/* Адаптивность колонок при включении C */
+.conc-4-cols .col-conc {
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+
+@media (max-width: 991px) {
+    .conc-4-cols .col-conc {
+        flex: 0 0 50%;
+        max-width: 50%;
+        margin-bottom: 0.5rem;
+    }
+}
+
+@media (max-width: 575px) {
+    .conc-4-cols .col-conc {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+.conc-list {
+    padding: 8px;
+    flex: 1;
+    font-size: 0.8rem;
+    background: var(--bs-tertiary-bg);
+    min-height: 60px;
+}
+
+.conc-list-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    border-bottom: 1px dotted var(--bs-border-color);
+}
+
+.conc-list-item:last-child {
+    border-bottom: none;
+}
+
+.conc-salt-name {
+    font-size: 0.8rem;
+    color: var(--bs-body-color);
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.conc-salt-grams {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--fert-salt-grams);
+    margin-left: 8px;
+    white-space: nowrap;
+}
+
+/* Кликабельные соли в концентратах */
+.conc-list-item {
+    cursor: pointer;
+    transition: all 0.15s ease;
+    user-select: none;
+}
+
+.conc-list-item:hover {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+.conc-list-item.done {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+.conc-list-item.done .conc-salt-grams {
+    color: var(--bs-secondary-color);
+}
+
+/* Блокировка элементов (компактная) */
+.blocking-group {
+    background: var(--bs-tertiary-bg);
+    border-radius: 6px;
+    padding: 6px 8px;
+}
+
+.blocking-title {
+    font-weight: 600;
+    color: var(--bs-secondary-color);
+    margin-bottom: 4px;
+    border-bottom: 1px solid var(--bs-border-color);
+    padding-bottom: 2px;
+}
+
+.blocking-item {
+    padding: 2px 0;
+}
+
+.blocking-item .el {
+    font-weight: 600;
+    color: var(--bs-body-color);
+    min-width: 30px;
+    display: inline-block;
+}
+
+.blocking-legend {
+    background: var(--bs-body-bg);
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px dashed var(--bs-border-color);
+    text-align: center;
+}
+
+.conc-footer {
+    padding: 8px 12px;
+    background: var(--bs-secondary-bg);
+    border-top: 1px solid var(--bs-border-color);
+    font-size: 0.8rem;
+}
+
+@media (max-width: 767px) {
+    .conc-volumes-row {
+        flex-direction: column;
+        gap: 0.5rem !important;
+    }
+
+    .conc-volumes-row .input-group {
+        width: 100% !important;
+    }
+}
+
+/* Фиксы для мобильной таблицы - колонка "Имя" */
+@media (max-width: 768px) {
+    /* Увеличиваем ширину колонки с именем чтобы кнопки не наезжали */
+    .table.fert tbody td:first-child,
+    .table.fert thead th:first-child {
+        min-width: 180px !important;
+        max-width: 220px !important;
+    }
+
+    /* Компактный layout внутри ячейки с именем */
+    .table.fert tbody td.fertilizer-name {
+        padding: 0.4rem 0.3rem;
+    }
+
+    /* Flex контейнер внутри - уменьшаем gap и разрешаем перенос */
+    .table.fert tbody td.fertilizer-name > div {
+        gap: 0.25rem !important;
+        flex-wrap: wrap;
+    }
+
+    /* Название удобрения - переносим если длинное */
+    .table.fert .f-name {
+        font-size: 0.75rem;
+        line-height: 1.2;
+        max-width: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    /* Иконки и кнопки внутри ячейки - компактнее */
+    .table.fert tbody td.fertilizer-name i {
+        font-size: 0.85rem;
+    }
+
+    /* Кнопки удаления и избранного */
+    .table.fert .delete-button,
+    .table.fert .fav-star-btn {
+        padding: 0.15rem 0.3rem;
+        font-size: 0.75rem;
+        min-width: unset;
+    }
+
+    /* Плотность - меньше шрифт */
+    .table.fert .fert-density {
+        font-size: 0.7rem !important;
+    }
+}
+
+/* Для очень узких экранов (<400px) - еще компактнее */
+@media (max-width: 400px) {
+    .table.fert tbody td:first-child {
+        min-width: 160px !important;
+    }
+
+    .table.fert .f-name {
+        font-size: 0.7rem;
+        max-width: 80px;
+    }
+}
+
+/* Модалка выбора удобрений - список с чекбоксами */
+#selectFertilizerModal .fert-item {
+    transition: background-color 0.15s;
+}
+
+#selectFertilizerModal .fert-item:hover {
+    background-color: var(--bs-tertiary-bg);
+}
+
+#selectFertilizerModal .fert-item:has(.fert-checkbox:checked) {
+    background-color: var(--fert-drag-bg);
+}
+
+#selectFertilizerModal .fert-item:last-child {
+    border-bottom: none !important;
+}
+
+#selectFertilizerModal .fert-filter {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+}
+
+/* ====== Summary Panel (инфо-строка EC, Литры, детали) ====== */
+.summary-panel {
+    background: var(--fert-summary-bg);
+    border-radius: 8px;
+    border: 1px solid var(--bs-border-color);
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.summary-main {
+    background: var(--fert-summary-main-bg);
+    border-bottom: 1px solid var(--bs-border-color);
+}
+
+.summary-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 10px;
+    background: var(--bs-body-bg);
+    border-radius: 8px;
+    border: 1px solid var(--bs-border-color);
+}
+
+.summary-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--bs-secondary-color);
+    text-transform: uppercase;
+}
+
+.summary-input {
+    width: 70px !important;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 2px 4px;
+    border: 1px solid var(--bs-border-color);
+    border-radius: 4px;
+}
+
+.summary-input:focus {
+    border-color: var(--fert-summary-ec-accent);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(38, 166, 154, 0.2);
+}
+
+.btn-xs {
+    padding: 2px 6px;
+    font-size: 0.75rem;
+    line-height: 1;
+    border-radius: 4px;
+}
+
+.summary-ec {
+    border-left: 3px solid var(--fert-summary-ec-accent);
+}
+
+.summary-litres {
+    border-left: 3px solid var(--fert-summary-litres-accent);
+}
+
+.summary-quick {
+    font-size: 0.85rem;
+}
+
+.summary-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    background: var(--bs-body-bg);
+    border-radius: 6px;
+    border: 1px solid var(--bs-border-color);
+}
+
+.summary-badge .small {
+    font-size: 0.7rem;
+}
+
+.summary-details-row {
+    background: var(--bs-tertiary-bg);
+    font-size: 0.85rem;
+}
+
+.summary-detail {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    background: var(--bs-body-bg);
+    border-radius: 4px;
+    border: 1px solid var(--bs-border-color);
+}
+
+/* Поворот иконки при раскрытии */
+#summary-toggle-btn[aria-expanded="true"] #summary-toggle-icon {
+    transform: rotate(180deg);
+}
+
+#summary-toggle-icon {
+    transition: transform 0.2s ease;
+}
+
+/* Группа EC + Литры */
+.ec-litres-group {
+    display: flex;
+    align-items: stretch;
+    background: var(--bs-body-bg);
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.ec-litres-group .summary-item {
+    border-left: none;
+    border-radius: 0;
+}
+
+.ec-litres-group .summary-ec {
+    border-right: 1px solid var(--bs-border-color);
+}
+
+/* Адаптивность summary panel */
+@media (max-width: 576px) {
+    .summary-panel {
+        overflow: visible;
+    }
+
+    .summary-main {
+        padding: 0.5rem !important;
+        justify-content: space-between !important;
+    }
+
+    .summary-main > .vr,
+    .summary-quick {
+        display: none !important;
+    }
+
+    .ec-litres-group {
+        width: 100%;
+        justify-content: space-between;
+        background: transparent;
+        box-shadow: none;
+        gap: 8px;
+    }
+
+    .ec-litres-group .summary-item {
+        flex: 0 0 auto;
+        padding: 8px 10px;
+        background: var(--bs-body-bg);
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .ec-litres-group .summary-ec {
+        border-right: none;
+    }
+
+    .summary-input {
+        width: 60px !important;
+        font-size: 0.9rem;
+    }
+
+    .summary-label {
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+
+    .summary-badge {
+        padding: 2px 4px;
+        font-size: 0.7rem;
+    }
+}
+
+/* ==========================================
+   TELEGRAM WEB APP (TWA) MODE
+   ========================================== */
+
+/* Скрыть navbar в TWA режиме */
+body.twa-mode header,
+body.twa-mode nav.navbar,
+body.twa-mode .navbar {
+    display: none !important;
+}
+
+/* Убрать верхний padding от navbar */
+body.twa-mode {
+    padding-top: 0 !important;
+}
+
+body.twa-mode .container {
+    padding-top: 0.5rem;
+}
+
+/* Убрать отступ от скрытого navbar */
+body.twa-mode .p-3:first-of-type {
+    padding-top: 0 !important;
+}
+
+/* Вертикальный режим по умолчанию в TWA */
+body.twa-mode .fert-vertical-view {
+    display: block !important;
+}
+
+body.twa-mode .fert-table-view,
+body.twa-mode .fert-cards-view {
+    display: none !important;
+}
+
+/* Когда явно выбран другой режим - показываем его */
+body.twa-mode.mode-table .fert-table-view {
+    display: block !important;
+}
+
+body.twa-mode.mode-table .fert-vertical-view,
+body.twa-mode.mode-table .fert-cards-view {
+    display: none !important;
+}
+
+body.twa-mode.mode-cards .fert-cards-view {
+    display: block !important;
+}
+
+body.twa-mode.mode-cards .fert-table-view,
+body.twa-mode.mode-cards .fert-vertical-view {
+    display: none !important;
+}
+
+/* TWA Toolbar - компактный */
+body.twa-mode .fert-toolbar {
+    padding: 0.35rem 0.5rem;
+    gap: 0.35rem !important;
+    flex-wrap: wrap;
+}
+
+/* Скрыть лишние кнопки в TWA */
+body.twa-mode .fert-toolbar .vr {
+    display: none !important;
+}
+
+/* Скрыть QR, копировать ссылку, справку (меньше места) */
+body.twa-mode #toggle-qr-button,
+body.twa-mode #copy-button {
+    display: none !important;
+}
+
+/* Компактные кнопки в TWA */
+body.twa-mode .fert-toolbar .btn {
+    padding: 0.35rem 0.5rem;
+    font-size: 0.8rem;
+}
+
+body.twa-mode .fert-toolbar .btn .bi {
+    font-size: 1rem;
+}
+
+/* Скрыть текст на кнопках в TWA - оставить только иконки */
+body.twa-mode .fert-toolbar .btn span:not(.badge) {
+    display: none !important;
+}
+
+/* Summary panel компактнее в TWA */
+body.twa-mode .summary-panel {
+    margin-bottom: 0.5rem;
+}
+
+body.twa-mode .summary-main {
+    padding: 0.35rem 0.5rem !important;
+}
+
+/* Карточки концентратов - компактнее */
+body.twa-mode #card-concentrates .card-body,
+body.twa-mode #card-diagnostics .card-body {
+    padding: 0.5rem;
+}
+
+/* Модальные окна в TWA - полноэкранные */
+body.twa-mode .modal-dialog {
+    margin: 0;
+    max-width: 100%;
+    height: 100%;
+}
+
+body.twa-mode .modal-content {
+    height: 100%;
+    border-radius: 0;
+}
+
+/* Modal выбора удобрений - оптимизация фильтров */
+body.twa-mode #selectFertilizerModal .modal-body {
+    padding: 0.5rem;
+}
+
+/* Компактные фильтры в модалке */
+body.twa-mode #selectFertilizerModal .fert-filter-owner,
+body.twa-mode #selectFertilizerModal .fert-filter-type,
+body.twa-mode #selectFertilizerModal .fert-filter-bottle {
+    padding: 0.2rem 0.4rem;
+    font-size: 0.75rem;
+}
+
+body.twa-mode #selectFertilizerModal .fert-filter-owner .badge,
+body.twa-mode #selectFertilizerModal .fert-filter-type .badge {
+    font-size: 0.65rem;
+    padding: 0.1rem 0.3rem;
+}
+
+/* Скрыть текст Тип:/Бак: в фильтрах */
+body.twa-mode #selectFertilizerModal .mb-2 > small.text-muted {
+    display: none !important;
+}
+
+/* Footer модалки - кнопки компактнее */
+body.twa-mode .modal-footer {
+    padding: 0.5rem;
+    gap: 0.5rem;
+}
+
+body.twa-mode .modal-footer .btn {
+    flex: 1;
+}

@@ -1,0 +1,1132 @@
+/* ==========================================
+   MOBILE FERTILIZER CARDS UI
+   Карточный интерфейс для удобрений
+   ========================================== */
+
+/* --- CSS Переменные --- */
+:root {
+  /* Shadows */
+  --fc-shadow-sm: rgba(0, 0, 0, 0.1);
+  --fc-shadow-card: rgba(0, 0, 0, 0.08);
+  --fc-shadow-card-hover: rgba(0, 0, 0, 0.12);
+  --fc-shadow-success: rgba(25, 135, 84, 0.5);
+  --fc-shadow-primary: rgba(13, 110, 253, 0.1);
+  --fc-shadow-primary-strong: rgba(13, 110, 253, 0.25);
+
+  /* Element status colors */
+  --fc-element-good-bg: rgba(56, 218, 47, 0.2);
+  --fc-element-good-text: rgb(40, 167, 69);
+  --fc-element-warning-bg: rgba(210, 180, 0, 0.2);
+  --fc-element-warning-text: rgb(180, 150, 0);
+  --fc-element-danger-bg: rgba(128, 0, 0, 0.2);
+  --fc-element-danger-text: rgb(200, 0, 0);
+  --fc-element-critical-bg: rgba(206, 19, 113, 0.66);
+
+  /* Borders */
+  --fc-border-select: #ced4da;
+  --fc-border-input: #dee2e6;
+
+  /* Concentrate colors */
+  --fc-concentrate-a: #0d6efd;
+  --fc-concentrate-b: #dc3545;
+  --fc-concentrate-done: #198754;
+
+  /* Dark mode shadows */
+  --fc-shadow-dark: rgba(0, 0, 0, 0.3);
+  --fc-shadow-dark-hover: rgba(0, 0, 0, 0.4);
+  --fc-bg-dark-light: rgba(255, 255, 255, 0.05);
+
+  /* Text */
+  --fc-text-white: #fff;
+}
+
+/* Sticky header с балансом */
+.fert-balance-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bs-body-bg);
+    border-bottom: 2px solid var(--bs-border-color);
+    padding: 0.75rem 1rem;
+    box-shadow: 0 2px 8px var(--fc-shadow-sm);
+}
+
+.fert-balance-header .balance-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.fert-balance-header .balance-item {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.fert-balance-header .balance-label {
+    color: var(--bs-secondary);
+    font-weight: 500;
+}
+
+.fert-balance-header .balance-value {
+    font-weight: 700;
+}
+
+/* Переключатель режимов */
+.view-mode-toggle {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background: var(--bs-light);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.view-mode-toggle .btn {
+    flex: 1;
+    font-size: 0.875rem;
+}
+
+/* По умолчанию показываем таблицу */
+.fert-table-view {
+    display: block;
+    overflow-x: auto;
+}
+
+/* Когда пользователь выбрал режим явно */
+.mode-table .fert-table-view {
+    display: block;
+}
+
+/* Контейнер карточек */
+.fertilizer-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.5rem;
+}
+
+/* Карточка удобрения */
+.fertilizer-card {
+    background: var(--bs-body-bg);
+    border: 1px solid var(--bs-border-color);
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 2px 8px var(--fc-shadow-card);
+    transition: box-shadow 0.2s ease;
+}
+
+.fertilizer-card:hover {
+    box-shadow: 0 4px 16px var(--fc-shadow-card-hover);
+}
+
+/* Отключённая карточка */
+.fert-card-disabled {
+    opacity: 0.45;
+}
+.fert-card-disabled .fertilizer-card-name span {
+    text-decoration: line-through;
+    color: var(--bs-secondary-color, #6c757d);
+}
+
+/* Отключённая колонка в вертикальном виде */
+.fert-v-col-disabled {
+    opacity: 0.45;
+}
+.fert-v-col-disabled .fert-v-name {
+    text-decoration: line-through;
+    color: var(--bs-secondary-color, #6c757d);
+}
+
+/* Заголовок карточки */
+.fertilizer-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+    gap: 0.5rem;
+}
+
+.fertilizer-card-title {
+    flex: 1;
+    min-width: 0;
+}
+
+.fertilizer-card-name {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.25rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.fertilizer-card-name:hover {
+    color: var(--bs-primary);
+}
+
+.fertilizer-card-name .fert-icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.fertilizer-card-description {
+    font-size: 0.75rem;
+    color: var(--bs-secondary);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.fertilizer-card-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+/* Блок граммов */
+.fertilizer-card-grams {
+    background: var(--bs-light);
+    border-radius: 8px;
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.fertilizer-card-grams-label {
+    font-size: 0.75rem;
+    color: var(--bs-secondary);
+    margin-bottom: 0.35rem;
+    display: block;
+}
+
+.fertilizer-card-grams-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.btn-success-bright {
+    background-color: var(--bs-success) !important;
+    border-color: var(--bs-success) !important;
+    box-shadow: 0 0 10px var(--fc-shadow-success);
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+}
+
+.fertilizer-card-grams-input {
+    flex: 1;
+    font-size: 1.25rem;
+    font-weight: 700;
+    padding: 0.5rem;
+    border: 2px solid var(--bs-border-color);
+    border-radius: 6px;
+    text-align: center;
+}
+
+.fertilizer-card-grams-input:focus {
+    border-color: var(--bs-primary);
+    outline: none;
+    box-shadow: 0 0 0 3px var(--fc-shadow-primary);
+}
+
+.fertilizer-card-recalc-btn {
+    flex-shrink: 0;
+}
+
+/* Быстрые кнопки коррекции */
+.fertilizer-card-quick-btns {
+    display: flex;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+}
+
+.fertilizer-card-quick-btns .btn {
+    flex: 1;
+    min-width: 0;
+    font-size: 0.75rem;
+    padding: 0.35rem 0.5rem;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+/* Текущий баланс */
+.fertilizer-card-current-balance {
+    background: linear-gradient(135deg, rgba(13, 110, 253, 0.05) 0%, rgba(25, 135, 84, 0.05) 100%);
+    border-left: 3px solid var(--bs-primary);
+    padding: 0.75rem;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+}
+
+/* Вклад удобрения */
+.fertilizer-card-contribution {
+    margin-bottom: 0.75rem;
+    padding: 0.5rem;
+    background: var(--bs-light);
+    border-radius: 8px;
+}
+
+.fertilizer-card-contribution-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.fertilizer-card-contribution-title:hover {
+    color: var(--bs-primary);
+}
+
+/* Grid для макро и микро рядом */
+.fertilizer-card-elements-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+}
+
+/* На узких экранах (<400px) в колонку */
+@media (max-width: 400px) {
+    .fertilizer-card-elements-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Заголовки секций */
+.fertilizer-card-section-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--bs-secondary);
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+    letter-spacing: 0.5px;
+}
+
+/* Отображение элемента с предпросмотром */
+.fertilizer-card-element-preview {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+    padding: 0.5rem;
+    background: var(--bs-light);
+    border-radius: 6px;
+    margin-bottom: 0.35rem;
+    transition: background-color 0.2s ease;
+}
+
+.fertilizer-card-element-preview:hover {
+    background: var(--bs-secondary-bg);
+}
+
+/* Компактное отображение элемента (всё в одну строку) */
+.fertilizer-card-element-compact {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+    background: var(--bs-light);
+    border-radius: 4px;
+    margin-bottom: 0.25rem;
+    transition: background-color 0.2s ease;
+}
+
+.fertilizer-card-element-compact:hover {
+    background: var(--bs-secondary-bg);
+}
+
+.fertilizer-card-element-compact .fertilizer-card-element-name {
+    font-weight: 600;
+    color: var(--bs-dark);
+    white-space: nowrap;
+}
+
+.fertilizer-card-element-compact .fertilizer-card-element-current {
+    font-weight: 600;
+    padding: 0.15rem 0.35rem;
+    border-radius: 3px;
+    background: var(--fc-shadow-primary);
+    white-space: nowrap;
+}
+
+.fertilizer-card-element-compact .fertilizer-card-element-contribution {
+    font-size: 0.75rem;
+    color: var(--bs-success);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.fertilizer-card-element-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.fertilizer-card-element-name {
+    font-weight: 700;
+    color: var(--bs-dark);
+    font-size: 0.9rem;
+}
+
+.fertilizer-card-element-current {
+    font-weight: 700;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    background: var(--fc-shadow-primary);
+    font-size: 0.85rem;
+}
+
+.fertilizer-card-element-contrib-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding-left: 0.75rem;
+    font-size: 0.8rem;
+}
+
+.fertilizer-card-contrib-label {
+    color: var(--bs-secondary);
+    font-style: italic;
+}
+
+.fertilizer-card-element-values {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.fertilizer-card-element-current.element-good {
+    background: var(--fc-element-good-bg);
+    color: var(--fc-element-good-text);
+}
+
+.fertilizer-card-element-current.element-warning {
+    background: var(--fc-element-warning-bg);
+    color: var(--fc-element-warning-text);
+}
+
+.fertilizer-card-element-current.element-danger {
+    background: var(--fc-element-danger-bg);
+    color: var(--fc-element-danger-text);
+}
+
+.fertilizer-card-element-current.element-critical {
+    background: var(--fc-element-critical-bg);
+    color: var(--fc-text-white);
+}
+
+.fertilizer-card-element-contribution {
+    font-size: 0.8rem;
+    color: var(--bs-success);
+    font-weight: 700;
+    background: rgba(25, 135, 84, 0.1);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+}
+
+/* Подсветка элементов (используем те же цвета, что в таблице) */
+.fertilizer-card-element.element-good {
+    background: var(--fc-element-good-bg);
+}
+
+.fertilizer-card-element.element-warning {
+    background: var(--fc-element-warning-bg);
+}
+
+.fertilizer-card-element.element-danger {
+    background: var(--fc-element-danger-bg);
+}
+
+.fertilizer-card-element.element-critical {
+    background: var(--fc-element-critical-bg);
+    color: var(--fc-text-white);
+}
+
+/* Футер карточки */
+.fertilizer-card-footer {
+    display: flex;
+    gap: 0.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--bs-border-color);
+}
+
+.fertilizer-card-footer .btn {
+    flex: 1;
+}
+
+/* Секции макро и микро */
+.fertilizer-card-macro-section,
+.fertilizer-card-micro-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* Пустое состояние */
+.fertilizer-cards-empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--bs-secondary);
+}
+
+.fertilizer-cards-empty-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.fertilizer-cards-empty-text {
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+}
+
+.fertilizer-cards-empty-hint {
+    font-size: 0.875rem;
+}
+
+/* Добавление удобрения */
+.fertilizer-cards-add {
+    padding: 1rem;
+    text-align: center;
+}
+
+.fertilizer-cards-add .btn {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+}
+
+/* Модальное окно редактирования с предпросмотром */
+.fert-edit-modal .preview-section {
+    background: var(--bs-light);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.fert-edit-modal .preview-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.fert-edit-modal .preview-comparison {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 0.75rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    background: var(--bs-body-bg);
+    border-radius: 6px;
+}
+
+.fert-edit-modal .preview-current,
+.fert-edit-modal .preview-new {
+    font-size: 0.875rem;
+}
+
+.fert-edit-modal .preview-label {
+    font-size: 0.75rem;
+    color: var(--bs-secondary);
+    margin-bottom: 0.25rem;
+}
+
+.fert-edit-modal .preview-value {
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.fert-edit-modal .preview-arrow {
+    color: var(--bs-secondary);
+    font-size: 1.25rem;
+}
+
+.fert-edit-modal .preview-diff {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+}
+
+.fert-edit-modal .preview-diff.diff-up {
+    background: rgba(220, 53, 69, 0.1);
+    color: var(--bs-danger);
+}
+
+.fert-edit-modal .preview-diff.diff-down {
+    background: var(--fc-shadow-primary);
+    color: var(--bs-primary);
+}
+
+.fert-edit-modal .preview-recommendation {
+    background: rgba(255, 193, 7, 0.1);
+    border-left: 3px solid var(--bs-warning);
+    padding: 0.75rem;
+    margin-top: 0.75rem;
+    border-radius: 4px;
+}
+
+.fert-edit-modal .preview-recommendation-text {
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+/* Анимации */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fertilizer-card {
+    animation: slideIn 0.2s ease-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .fertilizer-card-grams-input {
+        font-size: 1.125rem;
+    }
+
+    .fertilizer-card-quick-btns .btn {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.4rem;
+    }
+
+    .fertilizer-card-element {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.5rem;
+    }
+
+    .fert-balance-header {
+        font-size: 0.8rem;
+        padding: 0.5rem;
+    }
+
+    /* Компактные элементы еще меньше на маленьких экранах */
+    .fertilizer-card-element-compact {
+        font-size: 0.75rem;
+        padding: 0.2rem 0.35rem;
+        margin-bottom: 0.2rem;
+    }
+
+    .fertilizer-card-element-compact .fertilizer-card-element-contribution {
+        font-size: 0.7rem;
+    }
+
+    .fertilizer-card-contribution {
+        padding: 0.35rem;
+    }
+}
+
+/* ==========================================
+   VIEW MODE TOGGLE - Переключатель режимов
+   ========================================== */
+
+.view-mode-toggle {
+    display: inline-flex;
+    gap: 0.25rem;
+}
+
+.view-mode-btn {
+    color: var(--bs-primary) !important;
+    border-color: var(--bs-primary) !important;
+    background-color: transparent !important;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+}
+
+.view-mode-btn:hover {
+    color: var(--fc-text-white) !important;
+    background-color: var(--bs-primary) !important;
+}
+
+.view-mode-btn.active {
+    color: var(--fc-text-white) !important;
+    background-color: var(--bs-primary) !important;
+    border-color: var(--bs-primary) !important;
+}
+
+/* ==========================================
+   DESKTOP TABLE OPTIMIZATIONS
+   Оптимизация таблицы удобрений для десктопа
+   ========================================== */
+
+@media (min-width: 992px) {
+    /* Таблица удобрений - оптимизация ширины колонок */
+    .fert {
+        table-layout: auto;
+        width: 100%;
+    }
+
+    .fert th, .fert td {
+        white-space: nowrap;
+        padding: 0.5rem 0.4rem;
+        font-size: 0.875rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Колонка "Имя" - ограниченная ширина */
+    .fert th:first-child,
+    .fert td:first-child {
+        min-width: 180px;
+        max-width: 280px;
+        white-space: normal;
+        word-wrap: break-word;
+    }
+
+    /* Колонка "Граммы" */
+    .fert th:nth-child(2),
+    .fert td:nth-child(2) {
+        width: 110px;
+        min-width: 100px;
+        max-width: 120px;
+    }
+
+    /* Колонки элементов - компактные */
+    .fert th:nth-child(n+3),
+    .fert td:nth-child(n+3) {
+        width: 70px;
+        min-width: 55px;
+        max-width: 85px;
+        text-align: center;
+        padding: 0.5rem 0.25rem;
+    }
+
+    /* Input в ячейках граммов */
+    .fert input.grams-input {
+        width: 95px;
+        max-width: 100%;
+        font-size: 0.875rem;
+    }
+
+    /* Контейнер таблицы - БЕЗ горизонтального скролла на десктопе */
+    .fert-table-view .table-responsive {
+        overflow-x: auto;
+        overflow-y: auto;
+        max-height: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Селект удобрений - ограниченная ширина */
+    #fertilizer-select {
+        max-width: 600px;
+        width: 100% !important;
+    }
+
+    /* Select2 контейнер - ограничиваем ширину на десктопе */
+    .select2-container {
+        max-width: 600px !important;
+        width: 100% !important;
+    }
+
+    .select2-container--default .select2-selection--single {
+        height: 38px;
+        display: flex;
+        align-items: center;
+    }
+
+    /* Select2 в модалке - на всю ширину */
+    .modal-body .select2-container {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+
+    /* Select2 множественный выбор - увеличенная область */
+    .select2-container--default .select2-selection--multiple {
+        min-height: 200px !important;
+        max-height: 400px !important;
+        overflow-y: auto;
+        padding: 8px;
+        border: 2px solid var(--fc-border-select);
+        border-radius: 0.375rem;
+    }
+
+    .select2-container--default.select2-container--focus .select2-selection--multiple {
+        border-color: var(--fc-concentrate-a);
+        box-shadow: 0 0 0 0.25rem var(--fc-shadow-primary-strong);
+    }
+
+    /* Выбранные элементы - большие и контрастные */
+    .select2-container--default .select2-selection--multiple .select2-selection__choice {
+        background-color: var(--fc-concentrate-a) !important;
+        border: none !important;
+        color: var(--fc-text-white) !important;
+        padding: 8px 12px !important;
+        margin: 4px !important;
+        font-size: 1rem !important;
+        border-radius: 0.375rem !important;
+        display: inline-flex;
+        align-items: center;
+        font-weight: 500;
+    }
+
+    /* Кнопка удаления выбранного элемента */
+    .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+        color: var(--fc-text-white) !important;
+        font-size: 1.2rem !important;
+        margin-right: 8px !important;
+        font-weight: bold;
+        opacity: 0.8;
+    }
+
+    .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
+        opacity: 1;
+        background-color: transparent !important;
+    }
+
+    /* Поле ввода для поиска */
+    .select2-container--default .select2-selection--multiple .select2-search--inline .select2-search__field {
+        font-size: 1rem;
+        padding: 4px;
+    }
+
+    /* Результаты поиска */
+    .select2-results__option {
+        padding: 10px 12px;
+        font-size: 0.95rem;
+    }
+
+    .select2-results__option--highlighted {
+        background-color: var(--fc-concentrate-a) !important;
+        color: var(--fc-text-white) !important;
+    }
+
+    /* Дропдаун список */
+    .select2-dropdown {
+        border: 2px solid var(--fc-border-select);
+        border-radius: 0.375rem;
+    }
+
+    /* Концентраты - теперь везде показываем компактный вид */
+    .concentrates-desktop-view {
+        display: none !important;
+    }
+
+    .concentrates-mobile-view {
+        display: block !important;
+    }
+
+    /* Стили для десктопной таблицы концентратов */
+    #water-output-outer table {
+        margin-bottom: 0;
+    }
+
+    #water-output-outer thead th {
+        background-color: var(--bs-light);
+        padding: 1rem;
+        vertical-align: middle;
+        font-size: 0.9rem;
+    }
+
+    #water-output-outer input[type="number"] {
+        width: 80px;
+        display: inline-block;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.875rem;
+        border: 1px solid var(--fc-border-input);
+        border-radius: 0.25rem;
+        margin: 0 0.5rem;
+    }
+
+    #water-output-outer tbody td {
+        padding: 0.75rem 1rem;
+        font-size: 0.875rem;
+        vertical-align: middle;
+    }
+
+    /* Чекбоксы в таблице концентратов */
+    #water-output-outer input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+        margin-right: 0.5rem;
+    }
+
+    /* Названия концентратов A и B */
+    #water-output-outer .text-primary {
+        font-weight: 600;
+        font-size: 1rem;
+    }
+}
+
+/* Стили для компактного вида концентратов с чекбоксами (всегда активны) */
+.concentrate-list-item {
+    background: var(--bs-light);
+    border-radius: 8px;
+    padding: 0.75rem;
+    border-left: 4px solid transparent;
+    transition: all 0.2s ease;
+    margin-bottom: 0.5rem;
+}
+
+.concentrate-list-item:hover {
+    background: var(--bs-secondary-bg);
+    transform: translateX(4px);
+}
+
+.concentrate-item-a {
+    border-left-color: var(--fc-concentrate-a);
+}
+
+.concentrate-item-b {
+    border-left-color: var(--fc-concentrate-b);
+}
+
+/* Чекбокс */
+.concentrate-list-item .form-check {
+    margin: 0;
+}
+
+.concentrate-list-item .form-check-input {
+    min-width: 20px;
+    min-height: 20px;
+    margin-top: 0.1rem;
+    cursor: pointer;
+}
+
+.concentrate-list-item .form-check-label {
+    cursor: pointer;
+    font-size: 0.9rem;
+    user-select: none;
+    width: 100%;
+    margin-left: 0.5rem;
+    position: relative;
+}
+
+/* Зачеркивание при отметке */
+.concentrate-list-item .form-check-input:checked + .form-check-label .concentrate-item-text {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+/* Добавляем текст "налито" */
+.concentrate-list-item .form-check-input:checked + .form-check-label::after {
+    content: ' налито';
+    color: var(--fc-concentrate-done);
+    font-weight: 600;
+    font-size: 0.8rem;
+    margin-left: 0.5rem;
+}
+
+.concentrate-item-text {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.concentrate-item-grams {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Скрытие кнопок +/- в граммах на десктопе */
+@media (min-width: 992px) {
+    .grams-increase,
+    .grams-decrease,
+    .fertilizer-card-grams-increase,
+    .fertilizer-card-grams-decrease {
+        display: none !important;
+    }
+}
+
+/* Мобильная оптимизация концентратов */
+@media (max-width: 576px) {
+    .concentrate-list-item {
+        padding: 0.5rem;
+    }
+
+    .concentrate-item-text {
+        font-size: 0.85rem;
+    }
+
+    .concentrate-item-grams {
+        font-size: 0.8rem;
+    }
+}
+
+/* Dark mode support - system preference */
+@media (prefers-color-scheme: dark) {
+    .fertilizer-card {
+        box-shadow: 0 2px 8px var(--fc-shadow-dark);
+    }
+
+    .fertilizer-card:hover {
+        box-shadow: 0 4px 16px var(--fc-shadow-dark-hover);
+    }
+
+    .fertilizer-card-grams {
+        background: var(--fc-bg-dark-light);
+    }
+}
+
+/* Dark mode support - Bootstrap 5.3 manual toggle */
+[data-bs-theme="dark"] {
+    /* Таблица удобрений */
+    .fert,
+    .table.fert {
+        --bs-table-bg: var(--bs-body-bg);
+        --bs-table-color: var(--bs-body-color);
+    }
+
+    .fert thead th,
+    .fert tbody td {
+        background-color: var(--bs-body-bg) !important;
+        color: var(--bs-body-color) !important;
+        border-color: var(--bs-border-color) !important;
+    }
+
+    .fert tbody tr:hover td {
+        background-color: var(--bs-tertiary-bg) !important;
+    }
+
+    /* Матрица элементов */
+    #element-matrix thead th,
+    #element-matrix tbody td:first-child {
+        background: var(--bs-tertiary-bg) !important;
+        color: var(--bs-body-color) !important;
+    }
+
+    /* Плавающая матрица */
+    .element-matrix-float {
+        background: var(--bs-body-bg) !important;
+        border-color: var(--bs-border-color) !important;
+    }
+
+    .element-matrix-float .matrix-header {
+        background: var(--bs-secondary-bg) !important;
+        color: var(--bs-body-color) !important;
+    }
+
+    /* Кнопки панели */
+    #matrix-toggle-toolbar {
+        background: var(--bs-tertiary-bg) !important;
+        border-color: var(--bs-border-color) !important;
+        color: var(--bs-body-color) !important;
+    }
+
+    #matrix-toggle-toolbar:hover {
+        background: var(--bs-secondary-bg) !important;
+    }
+
+    /* Inputs */
+    .grams-input,
+    input[type="number"] {
+        background-color: var(--bs-body-bg) !important;
+        color: var(--bs-body-color) !important;
+        border-color: var(--bs-border-color) !important;
+    }
+
+    /* Карточки удобрений */
+    .fertilizer-card {
+        background: var(--bs-body-bg);
+        border-color: var(--bs-border-color);
+        box-shadow: 0 2px 8px var(--fc-shadow-dark);
+    }
+
+    .fertilizer-card:hover {
+        box-shadow: 0 4px 16px var(--fc-shadow-dark-hover);
+    }
+
+    .fertilizer-card-grams {
+        background: var(--bs-tertiary-bg);
+    }
+
+    /* Concentrate list */
+    .concentrate-list-item {
+        background: var(--bs-tertiary-bg);
+    }
+
+    .concentrate-list-item:hover {
+        background: var(--bs-secondary-bg);
+    }
+
+    /* Select2 */
+    .select2-container--default .select2-selection--multiple,
+    .select2-container--default .select2-selection--single {
+        background-color: var(--bs-body-bg) !important;
+        border-color: var(--bs-border-color) !important;
+        color: var(--bs-body-color) !important;
+    }
+
+    .select2-dropdown {
+        background-color: var(--bs-body-bg) !important;
+        border-color: var(--bs-border-color) !important;
+    }
+
+    .select2-results__option {
+        background-color: var(--bs-body-bg) !important;
+        color: var(--bs-body-color) !important;
+    }
+
+    .select2-results__option--highlighted {
+        background-color: var(--bs-primary) !important;
+        color: var(--fc-text-white) !important;
+    }
+
+    /* Modal */
+    .modal-content {
+        background-color: var(--bs-body-bg) !important;
+        color: var(--bs-body-color) !important;
+    }
+}
+
+/* ==========================================
+   DRAG & DROP для горизонтальной таблицы
+   ========================================== */
+
+.table-drag-handle {
+    cursor: grab;
+    color: #aaa;
+    margin-right: 5px;
+    font-size: 0.8rem;
+    user-select: none;
+    display: inline-block;
+    padding: 0 2px;
+    line-height: 1;
+    vertical-align: middle;
+}
+
+.table-drag-handle:active {
+    cursor: grabbing;
+}
+
+tr.dragging-row {
+    opacity: 0.5;
+    background-color: var(--bs-primary-bg-subtle, #cfe2ff) !important;
+}
+
+tr.drag-over-row {
+    border-top: 2px solid var(--bs-primary, #0d6efd) !important;
+    background-color: var(--bs-primary-bg-subtle, #cfe2ff) !important;
+    opacity: 0.85;
+}
