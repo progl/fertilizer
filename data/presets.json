@@ -1,0 +1,772 @@
+{
+  "categories": [
+    {
+      "desc": "DWC / NFT / аэропоника",
+      "key": "hydro",
+      "name": "Гидропоника",
+      "presets": [
+        {
+          "category": "hydro",
+          "desc": "Низкий EC для молодых растений",
+          "key": "hydro_start",
+          "name": "Старт / рассада",
+          "nutrients": {
+            "b": 0.25,
+            "ca": 100,
+            "cu": 0.04,
+            "ec": 1.33,
+            "fe": 1.5,
+            "k": 150,
+            "mg": 30,
+            "mn": 0.4,
+            "mo": 0.04,
+            "n": 100,
+            "p": 30,
+            "s": 50,
+            "zn": 0.12
+          },
+          "phase": "start"
+        },
+        {
+          "category": "hydro",
+          "desc": "Повышенный N для зелёной массы",
+          "key": "hydro_veg",
+          "name": "Вегетация",
+          "nutrients": {
+            "b": 0.3,
+            "ca": 140,
+            "cu": 0.05,
+            "ec": 1.78,
+            "fe": 2.0,
+            "k": 210,
+            "mg": 40,
+            "mn": 0.5,
+            "mo": 0.05,
+            "n": 150,
+            "p": 30,
+            "s": 70,
+            "zn": 0.15
+          },
+          "phase": "veg"
+        },
+        {
+          "category": "hydro",
+          "desc": "Высокий K для плодоношения",
+          "key": "hydro_bloom",
+          "name": "Цветение / плод",
+          "nutrients": {
+            "b": 0.35,
+            "ca": 140,
+            "cu": 0.06,
+            "ec": 2.03,
+            "fe": 2.5,
+            "k": 280,
+            "mg": 50,
+            "mn": 0.6,
+            "mo": 0.06,
+            "n": 150,
+            "p": 40,
+            "s": 80,
+            "zn": 0.18
+          },
+          "phase": "bloom"
+        }
+      ]
+    },
+    {
+      "desc": "Кокосовый субстрат",
+      "key": "coco",
+      "name": "Кокос",
+      "presets": [
+        {
+          "category": "coco",
+          "desc": "Повышенный Ca для буферизации",
+          "key": "coco_start",
+          "name": "Старт / рассада",
+          "nutrients": {
+            "b": 0.28,
+            "ca": 130,
+            "cu": 0.05,
+            "ec": 1.58,
+            "fe": 1.8,
+            "k": 160,
+            "mg": 40,
+            "mn": 0.5,
+            "mo": 0.04,
+            "n": 110,
+            "p": 35,
+            "s": 60,
+            "zn": 0.14
+          },
+          "phase": "start"
+        },
+        {
+          "category": "coco",
+          "desc": "+Ca/Mg для компенсации ККО",
+          "key": "coco_veg",
+          "name": "Вегетация",
+          "nutrients": {
+            "b": 0.35,
+            "ca": 175,
+            "cu": 0.06,
+            "ec": 2.09,
+            "fe": 2.2,
+            "k": 220,
+            "mg": 55,
+            "mn": 0.6,
+            "mo": 0.05,
+            "n": 160,
+            "p": 35,
+            "s": 85,
+            "zn": 0.18
+          },
+          "phase": "veg"
+        },
+        {
+          "category": "coco",
+          "desc": "Усиленный Ca при высоком K",
+          "key": "coco_bloom",
+          "name": "Цветение / плод",
+          "nutrients": {
+            "b": 0.4,
+            "ca": 200,
+            "cu": 0.07,
+            "ec": 2.49,
+            "fe": 2.8,
+            "k": 290,
+            "mg": 75,
+            "mn": 0.7,
+            "mo": 0.06,
+            "n": 90,
+            "p": 35,
+            "s": 130,
+            "zn": 0.2
+          },
+          "phase": "bloom"
+        }
+      ]
+    },
+    {
+      "desc": "Инертный субстрат",
+      "key": "rockwool",
+      "name": "Минвата",
+      "presets": [
+        {
+          "category": "rockwool",
+          "desc": "Умеренный старт",
+          "key": "rockwool_start",
+          "name": "Старт / рассада",
+          "nutrients": {
+            "b": 0.26,
+            "ca": 110,
+            "cu": 0.04,
+            "ec": 1.43,
+            "fe": 1.6,
+            "k": 155,
+            "mg": 35,
+            "mn": 0.45,
+            "mo": 0.04,
+            "n": 100,
+            "p": 30,
+            "s": 55,
+            "zn": 0.13
+          },
+          "phase": "start"
+        },
+        {
+          "category": "rockwool",
+          "desc": "Сбалансированный рост",
+          "key": "rockwool_veg",
+          "name": "Вегетация",
+          "nutrients": {
+            "b": 0.32,
+            "ca": 155,
+            "cu": 0.05,
+            "ec": 1.9,
+            "fe": 2.1,
+            "k": 215,
+            "mg": 45,
+            "mn": 0.55,
+            "mo": 0.05,
+            "n": 150,
+            "p": 32,
+            "s": 75,
+            "zn": 0.16
+          },
+          "phase": "veg"
+        },
+        {
+          "category": "rockwool",
+          "desc": "Оптимум для плодоношения",
+          "key": "rockwool_bloom",
+          "name": "Цветение / плод",
+          "nutrients": {
+            "b": 0.38,
+            "ca": 185,
+            "cu": 0.06,
+            "ec": 2.33,
+            "fe": 2.6,
+            "k": 285,
+            "mg": 65,
+            "mn": 0.65,
+            "mo": 0.06,
+            "n": 85,
+            "p": 32,
+            "s": 120,
+            "zn": 0.19
+          },
+          "phase": "bloom"
+        }
+      ]
+    },
+    {
+      "desc": "Бустеры питания",
+      "key": "boost",
+      "name": "Буст",
+      "presets": [
+        {
+          "category": "boost",
+          "desc": "Усиленный фосфор для корней/цветения",
+          "key": "boost_p",
+          "name": "P буст",
+          "nutrients": {
+            "ec": 0.0,
+            "p": 80
+          },
+          "phase": ""
+        },
+        {
+          "category": "boost",
+          "desc": "Калий +20% от текущего — для плодов",
+          "key": "boost_k",
+          "name": "K буст",
+          "nutrients": {
+            "ec": 0.0,
+            "k": "+20%"
+          },
+          "phase": ""
+        },
+        {
+          "category": "boost",
+          "desc": "Кальций +20% от текущего — клеточные стенки",
+          "key": "boost_ca",
+          "name": "Ca буст",
+          "nutrients": {
+            "ca": "+20%",
+            "ec": 0.0
+          },
+          "phase": ""
+        },
+        {
+          "category": "boost",
+          "desc": "Бор 1.0 ppm — опыление и завязь плодов. Стандарт 0.3-0.5, буст до 1.0. Максимум 3-5 дней",
+          "key": "boost_b",
+          "name": "B буст (завязь)",
+          "nutrients": {
+            "b": 1.0,
+            "ec": 0.0
+          },
+          "phase": ""
+        },
+        {
+          "category": "boost",
+          "desc": "Магний +25% от текущего — фотосинтез, борьба с хлорозом",
+          "key": "boost_mg",
+          "name": "Mg буст (хлороз)",
+          "nutrients": {
+            "ec": 0.0,
+            "mg": "+25%"
+          },
+          "phase": ""
+        },
+        {
+          "category": "boost",
+          "desc": "Железо +50% от текущего — хлороз молодых листьев. Максимум 7 дней",
+          "key": "boost_fe",
+          "name": "Fe буст (хлороз молодых)",
+          "nutrients": {
+            "ec": 0.0,
+            "fe": "+50%"
+          },
+          "phase": ""
+        }
+      ]
+    },
+    {
+      "desc": "Научные рецепты 1860–1979",
+      "key": "classic",
+      "name": "Классика",
+      "presets": [
+        {
+          "category": "classic",
+          "desc": "Первый рецепт гидропоники. Очень высокий Fe (37 ppm)!",
+          "key": "knop",
+          "name": "Knop",
+          "nutrients": {
+            "b": 0,
+            "ca": 136.27,
+            "cu": 0,
+            "ec": 1.4,
+            "fe": 36.86,
+            "k": 132.93,
+            "mg": 19.69,
+            "mn": 0,
+            "mo": 0,
+            "n": 123.82,
+            "p": 103.45,
+            "s": 25.97,
+            "zn": 0
+          },
+          "phase": ""
+        },
+        {
+          "category": "classic",
+          "desc": "Penningsfeld, Северная Африка",
+          "key": "penningsfeld_na",
+          "name": "Penningsfeld NA",
+          "nutrients": {
+            "b": 0.28,
+            "ca": 36.07,
+            "cu": 0.06,
+            "ec": 1.02,
+            "fe": 2.79,
+            "k": 187.28,
+            "mg": 18.71,
+            "mn": 0.62,
+            "mo": 0.41,
+            "n": 82.36,
+            "p": 42.74,
+            "s": 27.9,
+            "zn": 0.01
+          },
+          "phase": ""
+        },
+        {
+          "category": "classic",
+          "desc": "Penningsfeld, гвоздика",
+          "key": "penningsfeld_carnations",
+          "name": "Penningsfeld Гвоздика",
+          "nutrients": {
+            "b": 1.19,
+            "ca": 149.09,
+            "cu": 0.01,
+            "ec": 1.88,
+            "fe": 4.02,
+            "k": 241.24,
+            "mg": 37.19,
+            "mn": 1.23,
+            "mo": 0,
+            "n": 163.6,
+            "p": 64.74,
+            "s": 54.51,
+            "zn": 0.01
+          },
+          "phase": ""
+        },
+        {
+          "category": "classic",
+          "desc": "Гравийная культура, Япония. Высокий N=246, без микро!",
+          "key": "gravel_japan",
+          "name": "Gravel Japan",
+          "nutrients": {
+            "b": 0,
+            "ca": 163.52,
+            "cu": 0,
+            "ec": 2.28,
+            "fe": 0,
+            "k": 312.79,
+            "mg": 49.34,
+            "mn": 0,
+            "mo": 0,
+            "n": 245.54,
+            "p": 40.89,
+            "s": 65.09,
+            "zn": 0
+          },
+          "phase": ""
+        },
+        {
+          "category": "classic",
+          "desc": "1940 г. Классика гидропоники. N=210, Ca=200 ppm.",
+          "key": "hoagland",
+          "name": "Arnon & Hoagland",
+          "nutrients": {
+            "b": 0.46,
+            "ca": 200.39,
+            "cu": 0.02,
+            "ec": 2.24,
+            "fe": 1.44,
+            "k": 236.15,
+            "mg": 48.61,
+            "mn": 0.5,
+            "mo": 0.01,
+            "n": 210.1,
+            "p": 30.97,
+            "s": 64.13,
+            "zn": 0.05
+          },
+          "phase": ""
+        },
+        {
+          "category": "classic",
+          "desc": "Dennis R. Hoagland, США",
+          "key": "hoagland_usa",
+          "name": "Hoagland USA",
+          "nutrients": {
+            "b": 0.27,
+            "ca": 160.31,
+            "cu": 0.03,
+            "ec": 1.87,
+            "fe": 1.12,
+            "k": 237.33,
+            "mg": 24.31,
+            "mn": 0.11,
+            "mo": 0.05,
+            "n": 224.1,
+            "p": 61.95,
+            "s": 32.07,
+            "zn": 0.13
+          },
+          "phase": ""
+        },
+        {
+          "category": "classic",
+          "desc": "Shive and Robbins, 1942",
+          "key": "shive_robbins",
+          "name": "Shive & Robbins",
+          "nutrients": {
+            "b": 0.1,
+            "ca": 161.11,
+            "cu": 0,
+            "ec": 1.7,
+            "fe": 1.12,
+            "k": 89.54,
+            "mg": 55.9,
+            "mn": 0.14,
+            "mo": 0,
+            "n": 132.36,
+            "p": 71.24,
+            "s": 96.84,
+            "zn": 0.13
+          },
+          "phase": ""
+        },
+        {
+          "category": "classic",
+          "desc": "Hacskalyo, 1961",
+          "key": "hacskalyo",
+          "name": "Hacskalyo",
+          "nutrients": {
+            "b": 0.4,
+            "ca": 120.23,
+            "cu": 0.02,
+            "ec": 1.6,
+            "fe": 5.03,
+            "k": 157.57,
+            "mg": 48.61,
+            "mn": 0.4,
+            "mo": 0.03,
+            "n": 112.05,
+            "p": 61.95,
+            "s": 64.13,
+            "zn": 0.05
+          },
+          "phase": ""
+        },
+        {
+          "category": "classic",
+          "desc": "1961 — универсальный. N=168, K=262 ppm.",
+          "key": "steiner",
+          "name": "Steiner",
+          "nutrients": {
+            "b": 0.43,
+            "ca": 184.76,
+            "cu": 0.01,
+            "ec": 2.2,
+            "fe": 1.34,
+            "k": 261.57,
+            "mg": 49.1,
+            "mn": 0.62,
+            "mo": 0.05,
+            "n": 167.8,
+            "p": 30.66,
+            "s": 111.59,
+            "zn": 0.11
+          },
+          "phase": ""
+        },
+        {
+          "category": "classic",
+          "desc": "1979 — для NFT. N=201, K=302 ppm.",
+          "key": "cooper",
+          "name": "Cooper",
+          "nutrients": {
+            "b": 0.3,
+            "ca": 172.34,
+            "cu": 0.1,
+            "ec": 2.27,
+            "fe": 1.9,
+            "k": 302.23,
+            "mg": 50.55,
+            "mn": 1.98,
+            "mo": 0.19,
+            "n": 201.31,
+            "p": 59.78,
+            "s": 67.98,
+            "zn": 0.1
+          },
+          "phase": ""
+        },
+        {
+          "category": "classic",
+          "desc": "Нидерланды. N=242, K=313 ppm.",
+          "key": "naaldwijk",
+          "name": "Naaldwijk (огурец)",
+          "nutrients": {
+            "b": 0.27,
+            "ca": 160.31,
+            "cu": 0.04,
+            "ec": 2.14,
+            "fe": 0.84,
+            "k": 312.79,
+            "mg": 34.03,
+            "mn": 0.55,
+            "mo": 0.34,
+            "n": 241.62,
+            "p": 38.72,
+            "s": 44.89,
+            "zn": 0.03
+          },
+          "phase": ""
+        },
+        {
+          "category": "classic",
+          "desc": "Безземельная культура. Высокий N=242, K=430 ppm.",
+          "key": "research_centre",
+          "name": "Research Centre",
+          "nutrients": {
+            "b": 0.34,
+            "ca": 220.43,
+            "cu": 0.04,
+            "ec": 2.73,
+            "fe": 7.1,
+            "k": 430.08,
+            "mg": 36.46,
+            "mn": 2.4,
+            "mo": 0.06,
+            "n": 241.63,
+            "p": 69.69,
+            "s": 87.22,
+            "zn": 0.12
+          },
+          "phase": ""
+        },
+        {
+          "category": "classic",
+          "desc": "1966 — сбалансированный. N=168, K=156 ppm.",
+          "key": "hewitt",
+          "name": "Hewitt",
+          "nutrients": {
+            "b": 0.54,
+            "ca": 160,
+            "cu": 0.064,
+            "ec": 1.72,
+            "fe": 2.8,
+            "k": 156,
+            "mg": 36,
+            "mn": 0.54,
+            "mo": 0.04,
+            "n": 168,
+            "p": 41,
+            "s": 48,
+            "zn": 0.065
+          },
+          "phase": ""
+        }
+      ]
+    },
+    {
+      "desc": "Нормы Nouryon/SQM/YARA 2020",
+      "key": "crop",
+      "name": "Культуры",
+      "presets": [
+        {
+          "category": "crop",
+          "desc": "Инертный субстрат · Nouryon/SQM/YARA 2020",
+          "key": "crop_tomato",
+          "name": "Томат",
+          "nutrients": {
+            "b": 0.54,
+            "ca": 216,
+            "cu": 0.04,
+            "ec": 2.72,
+            "fe": 1.95,
+            "k": 371,
+            "mg": 58,
+            "mn": 0.55,
+            "mo": 0.05,
+            "n": 227,
+            "p": 47,
+            "s": 141,
+            "zn": 0.46
+          },
+          "phase": ""
+        },
+        {
+          "category": "crop",
+          "desc": "Инертный субстрат · Nouryon/SQM/YARA 2020",
+          "key": "crop_cucumber",
+          "name": "Огурец",
+          "nutrients": {
+            "b": 0.54,
+            "ca": 160,
+            "cu": 0.1,
+            "ec": 2.13,
+            "fe": 1.4,
+            "k": 313,
+            "mg": 33,
+            "mn": 0.38,
+            "mo": 0.05,
+            "n": 243,
+            "p": 39,
+            "s": 64,
+            "zn": 0.46
+          },
+          "phase": ""
+        },
+        {
+          "category": "crop",
+          "desc": "Инертный субстрат · Nouryon/SQM/YARA 2020",
+          "key": "crop_pepper",
+          "name": "Перец",
+          "nutrients": {
+            "b": 0.86,
+            "ca": 200,
+            "cu": 0.04,
+            "ec": 2.23,
+            "fe": 1.95,
+            "k": 263,
+            "mg": 36,
+            "mn": 0.27,
+            "mo": 0.05,
+            "n": 249,
+            "p": 39,
+            "s": 80,
+            "zn": 0.46
+          },
+          "phase": ""
+        },
+        {
+          "category": "crop",
+          "desc": "Инертный субстрат · Nouryon/SQM/YARA 2020",
+          "key": "crop_melon",
+          "name": "Дыня",
+          "nutrients": {
+            "b": 0.54,
+            "ca": 160,
+            "cu": 0.06,
+            "ec": 2.14,
+            "fe": 1.4,
+            "k": 313,
+            "mg": 34,
+            "mn": 0.38,
+            "mo": 0.05,
+            "n": 242,
+            "p": 39,
+            "s": 45,
+            "zn": 0.46
+          },
+          "phase": ""
+        },
+        {
+          "category": "crop",
+          "desc": "Инертный субстрат · Nouryon/SQM/YARA 2020",
+          "key": "crop_eggplant",
+          "name": "Баклажан",
+          "nutrients": {
+            "b": 0.86,
+            "ca": 130,
+            "cu": 0.05,
+            "ec": 2.08,
+            "fe": 1.4,
+            "k": 263,
+            "mg": 60,
+            "mn": 0.38,
+            "mo": 0.05,
+            "n": 238,
+            "p": 39,
+            "s": 48,
+            "zn": 0.46
+          },
+          "phase": ""
+        },
+        {
+          "category": "crop",
+          "desc": "Инертный субстрат · Nouryon/SQM/YARA 2020",
+          "key": "crop_strawberry",
+          "name": "Клубника",
+          "nutrients": {
+            "b": 0.11,
+            "ca": 144,
+            "cu": 0.05,
+            "ec": 1.73,
+            "fe": 0.56,
+            "k": 188,
+            "mg": 36,
+            "mn": 0.38,
+            "mo": 0.05,
+            "n": 182,
+            "p": 31,
+            "s": 48,
+            "zn": 0.46
+          },
+          "phase": ""
+        },
+        {
+          "category": "crop",
+          "desc": "Водная культура (DWC/NFT) · Nouryon/SQM/YARA 2020",
+          "key": "crop_lettuce",
+          "name": "Салат",
+          "nutrients": {
+            "b": 0.54,
+            "ca": 180,
+            "cu": 0.1,
+            "ec": 2.29,
+            "fe": 2.23,
+            "k": 371,
+            "mg": 24,
+            "mn": 0.44,
+            "mo": 0.14,
+            "n": 238,
+            "p": 47,
+            "s": 64,
+            "zn": 0.52
+          },
+          "phase": ""
+        },
+        {
+          "category": "crop",
+          "desc": "Водная культура (DWC/NFT) · Nouryon/SQM/YARA 2020",
+          "key": "crop_herbs",
+          "name": "Зелень",
+          "nutrients": {
+            "b": 0.54,
+            "ca": 180,
+            "cu": 0.06,
+            "ec": 2.42,
+            "fe": 1.4,
+            "k": 263,
+            "mg": 72,
+            "mn": 0.27,
+            "mo": 0.05,
+            "n": 252,
+            "p": 39,
+            "s": 80,
+            "zn": 0.46
+          },
+          "phase": ""
+        }
+      ]
+    }
+  ]
+}
