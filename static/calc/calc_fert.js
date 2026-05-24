@@ -1406,6 +1406,14 @@ function updateURL() {
 
 function loadTableFromURL() {
     const urlParams = new URLSearchParams(window.location.search);
+    // Hash-ссылка (#p=<lz>&t=<title>) — для standalone GitHub Pages,
+    // где серверный shortlink недоступен. Если ?params= в query нет,
+    // подкладываем сжатые данные из hash.
+    if (!urlParams.has('params') && window.location.hash.startsWith('#p=')) {
+        const hashParams = new URLSearchParams(window.location.hash.slice(1));
+        if (hashParams.has('p')) urlParams.set('params', hashParams.get('p'));
+        if (hashParams.has('t') && !urlParams.has('title')) urlParams.set('title', hashParams.get('t'));
+    }
     console.log('[loadTableFromURL] Начало загрузки, params:', urlParams.get('params'));
     $('.fert > tbody > tr:not(#sum-row):not(#comp-row)').remove();
 

@@ -7,9 +7,24 @@
 
     const API_URL = '/calc/api/shortlink/';
 
+    // В standalone-режиме (GitHub Pages, file://) API недоступен — переключаемся
+    // на client-side ссылку через URL hash. Флаг становится true после первой
+    // 404/network-ошибки от любого shortlink-эндпоинта.
+    let serverShortlinkUnavailable = false;
+
     document.addEventListener('DOMContentLoaded', () => {
         initModal();
     });
+
+    // Формирует client-side ссылку: pathname#p=<lz>[&t=<title>].
+    // Hash не отправляется на сервер и работает на любом статическом хосте.
+    function buildHashLink(fertData, title) {
+        const base = window.location.origin + window.location.pathname;
+        const compressed = LZString.compressToEncodedURIComponent(JSON.stringify(fertData));
+        let hash = 'p=' + compressed;
+        if (title) hash += '&t=' + encodeURIComponent(title);
+        return base + '#' + hash;
+    }
 
     // ========== CSRF ==========
     function getCsrfToken() {
@@ -57,6 +72,7 @@
             const response = await fetch('/calc/api/shortlink/my/?type=fertilizer', {
                 headers: { 'X-CSRFToken': getCsrfToken() }
             });
+            if (!response.ok) throw new Error('HTTP ' + response.status);
             const result = await response.json();
 
             // Очищаем и заполняем селект
@@ -78,6 +94,11 @@
             }
         } catch (err) {
             console.warn('[FertilizerShortlink] Error loading links:', err);
+            serverShortlinkUnavailable = true;
+            // Standalone: спрятать селект «Мои ссылки» — в hash-режиме истории нет
+            selectElement.innerHTML = '<option value="" selected>+ Создать ссылку</option>';
+            const wrapper = selectElement.closest('.mb-3');
+            if (wrapper) wrapper.style.display = 'none';
         }
     }
 
@@ -147,6 +168,19 @@
             });
         }
 
+        // Standalone-режим: сгенерировать hash-ссылку и скопировать в буфер.
+        async function finishStandalone(fertData, title) {
+            const shortUrl = buildHashLink(fertData, title);
+            const bsModal = bootstrap.Modal.getInstance(modal);
+            if (bsModal) bsModal.hide();
+            try {
+                await navigator.clipboard.writeText(shortUrl);
+                showToast(`Ссылка скопирована: ${shortUrl}`, 'success');
+            } catch (_clipErr) {
+                prompt('Скопируйте ссылку:', shortUrl);
+            }
+        }
+
         // Отправка формы
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -164,6 +198,17 @@
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Сохранение...';
             errorDiv.classList.add('d-none');
+
+            // Standalone (уже знаем что API недоступен) — сразу hash-ссылка
+            if (serverShortlinkUnavailable) {
+                try {
+                    await finishStandalone(fertData, title);
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="bi bi-check-lg"></i> Сохранить';
+                }
+                return;
+            }
 
             try {
                 let response;
@@ -198,6 +243,13 @@
                     });
                 }
 
+                // API недоступен (404/500) — fallback на hash-ссылку
+                if (!response.ok) {
+                    serverShortlinkUnavailable = true;
+                    await finishStandalone(fertData, title);
+                    return;
+                }
+
                 const result = await response.json();
 
                 if (result.success) {
@@ -218,8 +270,10 @@
                     showError(errorDiv, result.error || 'Ошибка сохранения');
                 }
             } catch (err) {
-                console.error('[FertilizerShortlink] Save error:', err);
-                showError(errorDiv, 'Ошибка сохранения: ' + err.message);
+                // Сетевой fail (нет бэка) — переходим в standalone-режим
+                console.warn('[FertilizerShortlink] API недоступен, hash-ссылка:', err);
+                serverShortlinkUnavailable = true;
+                await finishStandalone(fertData, title);
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '<i class="bi bi-check-lg"></i> Сохранить';

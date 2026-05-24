@@ -921,9 +921,17 @@ const _t = window._t;
 
             async function _loadPresets() {
                 if (_cache) return _cache;
-                const resp = await fetch('/calc/api/presets/?grouped=1', { credentials: 'same-origin' });
-                if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-                const data = await resp.json();
+                let data = null;
+                try {
+                    const resp = await fetch('/calc/api/presets/?grouped=1', { credentials: 'same-origin' });
+                    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                    data = await resp.json();
+                } catch (apiErr) {
+                    // standalone-режим без Django backend — fallback на локальный JSON
+                    const resp = await fetch('./data/presets.json');
+                    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                    data = await resp.json();
+                }
                 const byKey = {};
                 for (const cat of data.categories) {
                     for (const p of cat.presets) byKey[p.key] = p;
