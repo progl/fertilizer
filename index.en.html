@@ -196,7 +196,7 @@
 <!-- ===== ГРУППА: Вид ===== -->
 <div class="btn-group btn-group-sm" role="group">
 <button class="btn btn-primary" id="view-mode-toggle-btn" title="Toggle view" type="button">
-<i class="bi bi-table"></i> Вид
+<i class="bi bi-table"></i> View
             </button>
 <button class="btn btn-outline-primary" id="fert-v-width-toggle-toolbar" title="Компактный/Широкий" type="button">
 <i class="bi bi-arrows-collapse"></i>
@@ -219,14 +219,14 @@
 <!-- ===== ГРУППА: Рецепт ===== -->
 <div class="btn-group btn-group-sm" role="group">
 <button class="btn btn-success" data-bs-target="#selectFertilizerModal" data-bs-toggle="modal" title="База удобрений" type="button">
-<i class="bi bi-database"></i> Удобрения
+<i class="bi bi-database"></i> Fertilizers
             </button>
 </div>
 <span class="vr align-self-stretch mx-1"></span>
 <!-- ===== ГРУППА: Профили ===== -->
 <div class="btn-group btn-group-sm" role="group">
 <button class="btn btn-info" data-bs-target="#fertilizerPresetsModal" data-bs-toggle="modal" title="Готовые профили" type="button">
-<i class="bi bi-journal-bookmark-fill"></i> Примеры
+<i class="bi bi-journal-bookmark-fill"></i> Examples
             </button>
 <button class="btn btn-warning" data-bs-target="#autoSolveModal" data-bs-toggle="modal" title="Auto recipe selection" type="button">
 <i class="bi bi-robot"></i> Auto
@@ -551,7 +551,7 @@
                     Fill in as on package. If oxides (K2O, P2O5) are specified - use their fields.
                 </div>
 <form action="/en/calc/fert-new/" enctype="multipart/form-data" id="form-add_plant_fert" method="post">
-<input name="csrfmiddlewaretoken" type="hidden" value="UgiPczBEU5oPvkvgrKHwww2eXIYU5IFQVoKMApMWpvEpotoB5sY3p230Od9Xpzzl"/>
+<input name="csrfmiddlewaretoken" type="hidden" value="KlYbEnNAbcfQrrszMvlGM8Flnx4c4nNY1U6wo3ryPdDb7RGGm6VVJEoc3sVQG8WP"/>
 <div class="section-header">Основное</div>
 <div class="row g-2 mb-2">
 <div class="col-12 field-compact">
@@ -857,7 +857,7 @@
                     Fill in as on package. If oxides (K2O, P2O5) are specified - use their fields.
                 </div>
 <form action="/en/calc/fert-new/1/" enctype="multipart/form-data" id="form-edit_plant_fert" method="post">
-<input name="csrfmiddlewaretoken" type="hidden" value="UgiPczBEU5oPvkvgrKHwww2eXIYU5IFQVoKMApMWpvEpotoB5sY3p230Od9Xpzzl"/>
+<input name="csrfmiddlewaretoken" type="hidden" value="KlYbEnNAbcfQrrszMvlGM8Flnx4c4nNY1U6wo3ryPdDb7RGGm6VVJEoc3sVQG8WP"/>
 <div class="section-header">Основное</div>
 <div class="row g-2 mb-2">
 <div class="col-12 field-compact">
@@ -1131,7 +1131,7 @@
 <h6 class="fw-semibold">Основные инструменты</h6>
 <ul class="mb-3">
 <li><strong>Auto</strong> — автоподбор рецепта: задайте целевые значения в PPM или ммоль, калькулятор подберёт граммы удобрений. Можно ограничить выборку — только избранные или только моно-соли.</li>
-<li><strong>Примеры</strong> — готовые профили по субстратам (гидро, кокос, минвата) и фазам; вкладка «Сообщество» — рецепты других пользователей.</li>
+<li><strong>Examples</strong> — готовые профили по субстратам (гидро, кокос, минвата) и фазам; вкладка «Сообщество» — рецепты других пользователей.</li>
 <li><strong>Balance diagnostics</strong> («More» → «Diagnostics») — соотношения K:N, K:Ca, K:Mg, Ca:Mg, ионная активность Ca/Mg с коэффициентами γ, матрица соотношений.</li>
 <li><strong>Element Compatibility</strong> («Ещё» → «Совместимость») — таблица антагонизмов и синергий (высокий P блокирует Fe/Zn, избыток K мешает Ca/Mg и т.д.).</li>
 <li><strong>Замешать в OHPG</strong> («More» → «Mix in OHPG») — перенести текущий рецепт в OHPG-калькулятор для расчёта по отдельным солям.</li>
@@ -11658,7 +11658,7 @@
 </div>
 <label class="form-check form-check-inline mb-0 small" style="cursor: pointer;">
 <input class="form-check-input" id="fixed-conc-volumes" type="checkbox"/>
-<span>Фикс: А/Б на 100л, Микро на 1000л</span>
+<span>Fix: A/B per 100L, Micro per 1000L</span>
 </label>
 </div>
 </div>
@@ -11688,7 +11688,7 @@
 <span class="fw-bold" id="totalA">0 g</span>
 </div>
 <div class="d-flex justify-content-between small text-muted">
-<span>Добавлять на 1л:</span>
+<span>Add per 1L:</span>
 <span id="amountToAddA">-</span>
 </div>
 </div>
@@ -11716,7 +11716,7 @@
 <span class="fw-bold" id="totalB">0 g</span>
 </div>
 <div class="d-flex justify-content-between small text-muted">
-<span>Добавлять на 1л:</span>
+<span>Add per 1L:</span>
 <span id="amountToAddB">-</span>
 </div>
 </div>
@@ -11747,7 +11747,7 @@
 <span class="fw-bold" id="totalMicro">0 g</span>
 </div>
 <div class="d-flex justify-content-between small text-muted">
-<span>Добавлять на 1л:</span>
+<span>Add per 1L:</span>
 <span id="amountToAddMicro">-</span>
 </div>
 </div>
@@ -11763,11 +11763,11 @@
 <div class="diagnostics-card" id="card-diagnostics">
 <div class="diag-header" id="diag-header-toggle" style="cursor: pointer;">
 <i class="bi bi-heart-pulse"></i>
-<span class="diag-header-title">Диагностика</span>
+<span class="diag-header-title">Diagnostics</span>
 <i class="bi bi-chevron-down diag-collapse-icon ms-1"></i>
 <span class="diag-header-badge" id="diagStatusBadge"></span>
 <select class="diag-substrate-select" id="diag-substrate-select" title="A Nitrates">
-<option value="hydro">Гидро</option>
+<option value="hydro">Hydro</option>
 <option value="coco">Coco</option>
 <option value="rockwool">Rockwool</option>
 </select>
@@ -11828,7 +11828,7 @@ NH4: 4-20% от NO3" id="nh4-ratio-card">
 <hr class="diag-divider"/>
 <div class="ion-activity-block px-3 pb-2">
 <div class="ion-activity-header">
-<span class="ion-activity-title">Ионная активность</span>
+<span class="ion-activity-title">Ion activity</span>
 <button aria-label="Details" class="ion-activity-info-btn" id="ion-activity-info-btn" type="button">
 <i class="bi bi-info-circle"></i>
 </button>
@@ -11852,7 +11852,7 @@ NH4: 4-20% от NO3" id="nh4-ratio-card">
 <!-- Попап с пояснением -->
 <div class="ion-activity-popup d-none" id="ion-activity-popup" role="tooltip">
 <button class="ion-activity-popup-close" id="ion-activity-popup-close" type="button">×</button>
-<h6 class="ion-activity-popup-title">Ионная активность</h6>
+<h6 class="ion-activity-popup-title">Ion activity</h6>
 <p class="ion-activity-popup-desc">Корень поглощает не количество иона в растворе, а его активность — реальную «доступную» долю. В насыщенном растворе ионы мешают друг другу и их активность ниже концентрации. Коэффициент γ (Дебай–Хюккель) показывает эту поправку: при EC=1.5 γ≈0.45 для Ca²⁺, при EC=3.0 γ≈0.35.</p>
 <table class="ion-activity-popup-table">
 <thead>
@@ -11878,7 +11878,7 @@ NH4: 4-20% от NO3" id="nh4-ratio-card">
 </div>
 <!-- Дисклеймер -->
 <div class="px-3 pb-2 pt-1" style="font-size: 0.72rem; color: var(--bs-secondary-color, #6c757d); line-height: 1.3;">
-<i class="bi bi-info-circle me-1"></i>Это рекомендации, а не правила. Красный показатель — повод обратить внимание, но опытный агроном может осознанно выходить за рамки.
+<i class="bi bi-info-circle me-1"></i>These are recommendations, not rules. A red indicator is a reason to pay attention, but an experienced agronomist may knowingly go beyond the limits.
     </div>
 <!-- Плавающая матрица соотношений -->
 <div class="ratio-matrix-float d-none" id="ratio-matrix">
