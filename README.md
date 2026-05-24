@@ -1,24 +1,90 @@
-# fertilizer-calc
+# Fertilizer Calc — калькулятор удобрений для гидропоники
 
-Fertilizer recipe calculator for hydroponics — pick fertilizers from a built-in
-database, set target NPK / element profile, get gram doses per tank.
-Standalone static frontend — no backend required.
+[![Pages](https://img.shields.io/badge/demo-online-brightgreen)](https://progl.github.io/fertilizer/)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-> Работа в процессе — заглушка README. Полное описание появится после первого релиза.
+**Fertilizer Calc** — это калькулятор-подборщик готовых удобрений (NPK,
+аминофосфаты, хелаты, моноудобрения и т.д.) для гидропоники.
 
-## Stack
+Указываешь целевой профиль раствора — он подбирает комбинацию удобрений
+из встроенного каталога **659 позиций** так, чтобы суммарно получилось
+ровно сколько нужно. Раскладывает рецепт по бакам А/Б и кислотам, чтобы
+ничего не выпало в осадок.
 
-- Vanilla JS + Bootstrap 5 + jQuery
-- Auto-solver for fertilizer blending
-- Pure client-side: fertilizer DB shipped as JSON, recipes stored in localStorage
+Всё работает в браузере — без бэкенда. Каталог удобрений идёт прямо в
+HTML + дополнительно в `data/fertilizers.json` (для third-party).
 
-## Quick start
+**Демо:** [progl.github.io/fertilizer](https://progl.github.io/fertilizer/)
 
-```bash
-python -m http.server 8000
-# open http://localhost:8000
+---
+
+## Что умеет
+
+- **Каталог 659 удобрений** — название, NPK-состав, микроэлементы,
+  ссылки на магазины, маркировка по бакам А/Б
+- **Автоматический подбор рецепта** — солвер находит комбинацию
+  удобрений под целевой профиль элементов
+- **Ручной режим** — выбираешь сам, какие удобрения использовать,
+  калькулятор показывает граммовки
+- **Совместимость с баками А/Б** — учитывает что Ca нельзя смешивать
+  с фосфатами и сульфатами
+- **Кислоты** — расчёт корректировки pH азотной, фосфорной, серной
+- **Диагностика баланса** — отклонения от нормы по соотношениям, цветовая подсветка
+- **Карточный режим** — компактное отображение по отдельным удобрениям
+  с граммовками на партию
+- **Печать рецепта** — оптимизированная форма для лаборатории
+- **QR-код рецепта** — для быстрого шеринга с телефона
+- **Onboarding-тур** — пошаговое введение для новых пользователей
+- **Сохранение в localStorage** — рецепты не теряются между сессиями
+
+## Каталог удобрений
+
+659 удобрений хранятся в двух местах:
+
+1. **Встроены в HTML** — `<div class="fert-item" data-*=...>`, готовые к
+   работе калькулятора без сетевых запросов
+2. **`data/fertilizers.json`** — для использования в сторонних проектах
+
+Пример загрузки из JSON:
+
+```javascript
+const fertilizers = await fetch('./data/fertilizers.json').then(r => r.json());
+// каждый объект: {id, name, n, p, k, ca, mg, fe, mn, zn, cu, b, mo, link, bottle, ...}
 ```
 
-## License
+Каталог обновляется через sync-скрипт из боевой БД ponics.online — при
+каждом push в `main` Pages деплоит свежий каталог.
 
-MIT — see [LICENSE](LICENSE).
+## Технологии
+
+- **Vanilla JS + jQuery + Bootstrap 5** — модалки, select2, табы
+- **Pure client-side** — без бэкенда, без БД, без cookies
+- **driver.js** — onboarding-тур
+- **lz-string** — упаковка состояния в URL для шеринга
+
+Размер: ~1.16 MB HTML (включает 659 удобрений) + ~512 KB JSON-каталог
++ JS/CSS зависимости.
+
+## Локальный запуск
+
+```bash
+python3 -m http.server 8000
+```
+
+Открой [http://localhost:8000](http://localhost:8000).
+
+## Деплой
+
+Репозиторий настроен на автодеплой в **GitHub Pages** через
+`.github/workflows/deploy.yml` — каждый push в `main` обновляет
+[демо-страницу](https://progl.github.io/fertilizer/).
+
+## Откуда это
+
+Калькулятор разработан как часть платформы для гидропоники
+[ponics.online](https://ponics.online) и вынесен в отдельный
+репозиторий как самостоятельный open-source инструмент.
+
+## Лицензия
+
+[MIT](LICENSE). Используй где угодно, как хочешь.
